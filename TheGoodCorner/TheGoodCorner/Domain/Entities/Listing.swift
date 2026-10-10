@@ -7,13 +7,15 @@
 
 import Foundation
 
-struct Listing: Identifiable, Equatable {
+
+struct Listing: Identifiable, Hashable {
     let id: Int
     let title: String
-    let price: Double
-    let categoryId: Int
     let description: String
+    let price: Double
+    let categoryID: Int
     let isUrgent: Bool
-    let imageSmallURL: URL?
-    let imageThumbURL: URL?
+    let creationDate: Date
+    let smallImageURL: URL?
+    let thumbImageURL: URL?
 }

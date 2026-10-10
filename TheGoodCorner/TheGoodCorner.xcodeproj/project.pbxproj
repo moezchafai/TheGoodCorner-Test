@@ -21,6 +21,9 @@
 		257E2774307AE0BE005367C8 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2773307AE0BE005367C8 /* Endpoint.swift */; };
 		257E2776307AE102005367C8 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2775307AE102005367C8 /* HTTPClient.swift */; };
 		257E2778307AE12E005367C8 /* ListingAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2777307AE12E005367C8 /* ListingAPIClient.swift */; };
+		257E277B307AE781005367C8 /* ListingsResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E277A307AE781005367C8 /* ListingsResponseDTO.swift */; };
+		257E277D307AE793005367C8 /* ListingDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E277C307AE793005367C8 /* ListingDTO.swift */; };
+		257E2781307AE7AE005367C8 /* CategoryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2780307AE7AE005367C8 /* CategoryDTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +62,9 @@
 		257E2773307AE0BE005367C8 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		257E2775307AE102005367C8 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		257E2777307AE12E005367C8 /* ListingAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingAPIClient.swift; sourceTree = "<group>"; };
+		257E277A307AE781005367C8 /* ListingsResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsResponseDTO.swift; sourceTree = "<group>"; };
+		257E277C307AE793005367C8 /* ListingDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingDTO.swift; sourceTree = "<group>"; };
+		257E2780307AE7AE005367C8 /* CategoryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +180,7 @@
 		257E276F307AE04C005367C8 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				257E2779307AE770005367C8 /* DTOs */,
 				257E2772307AE09E005367C8 /* API */,
 			);
 			path = Data;
@@ -188,6 +195,16 @@
 				257E2777307AE12E005367C8 /* ListingAPIClient.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		257E2779307AE770005367C8 /* DTOs */ = {
+			isa = PBXGroup;
+			children = (
+				257E277A307AE781005367C8 /* ListingsResponseDTO.swift */,
+				257E277C307AE793005367C8 /* ListingDTO.swift */,
+				257E2780307AE7AE005367C8 /* CategoryDTO.swift */,
+			);
+			path = DTOs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,9 +337,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				257E277D307AE793005367C8 /* ListingDTO.swift in Sources */,
 				257E2778307AE12E005367C8 /* ListingAPIClient.swift in Sources */,
 				257E2774307AE0BE005367C8 /* Endpoint.swift in Sources */,
 				257E276E307AAEC2005367C8 /* ListingCategory.swift in Sources */,
+				257E277B307AE781005367C8 /* ListingsResponseDTO.swift in Sources */,
+				257E2781307AE7AE005367C8 /* CategoryDTO.swift in Sources */,
 				257E2776307AE102005367C8 /* HTTPClient.swift in Sources */,
 				257E273B307A6091005367C8 /* ContentView.swift in Sources */,
 				257E2767307AACE2005367C8 /* Listing.swift in Sources */,
