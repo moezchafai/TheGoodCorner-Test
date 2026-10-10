@@ -3,79 +3,72 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 56;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		257E2739307A6091005367C8 /* TheGoodCornerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2738307A6091005367C8 /* TheGoodCornerApp.swift */; };
+		257E273B307A6091005367C8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E273A307A6091005367C8 /* ContentView.swift */; };
+		257E273D307A6095005367C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257E273C307A6095005367C8 /* Assets.xcassets */; };
+		257E2740307A6095005367C8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257E273F307A6095005367C8 /* Preview Assets.xcassets */; };
+		257E274A307A6095005367C8 /* TheGoodCornerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2749307A6095005367C8 /* TheGoodCornerTests.swift */; };
+		257E2754307A6095005367C8 /* TheGoodCornerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2753307A6095005367C8 /* TheGoodCornerUITests.swift */; };
+		257E2756307A6095005367C8 /* TheGoodCornerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2755307A6095005367C8 /* TheGoodCornerUITestsLaunchTests.swift */; };
+		257E2767307AACE2005367C8 /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2766307AACE2005367C8 /* Listing.swift */; };
+		257E276C307AADEF005367C8 /* ListingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E276B307AADEF005367C8 /* ListingRepository.swift */; };
+		257E276E307AAEC2005367C8 /* ListingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E276D307AAEC2005367C8 /* ListingCategory.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
-		4061631B2F98EFCE008F3A80 /* PBXContainerItemProxy */ = {
+		257E2746307A6095005367C8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 406163052F98EFCC008F3A80 /* Project object */;
+			containerPortal = 257E272D307A6091005367C8 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 4061630C2F98EFCC008F3A80;
+			remoteGlobalIDString = 257E2734307A6091005367C8;
 			remoteInfo = TheGoodCorner;
 		};
-		406163252F98EFCE008F3A80 /* PBXContainerItemProxy */ = {
+		257E2750307A6095005367C8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 406163052F98EFCC008F3A80 /* Project object */;
+			containerPortal = 257E272D307A6091005367C8 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 4061630C2F98EFCC008F3A80;
+			remoteGlobalIDString = 257E2734307A6091005367C8;
 			remoteInfo = TheGoodCorner;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4061630D2F98EFCC008F3A80 /* TheGoodCorner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheGoodCorner.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4061631A2F98EFCE008F3A80 /* TheGoodCornerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheGoodCornerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		406163242F98EFCE008F3A80 /* TheGoodCornerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheGoodCornerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		257E2735307A6091005367C8 /* TheGoodCorner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheGoodCorner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		257E2738307A6091005367C8 /* TheGoodCornerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheGoodCornerApp.swift; sourceTree = "<group>"; };
+		257E273A307A6091005367C8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		257E273C307A6095005367C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		257E273F307A6095005367C8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		257E2745307A6095005367C8 /* TheGoodCornerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheGoodCornerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		257E2749307A6095005367C8 /* TheGoodCornerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheGoodCornerTests.swift; sourceTree = "<group>"; };
+		257E274F307A6095005367C8 /* TheGoodCornerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheGoodCornerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		257E2753307A6095005367C8 /* TheGoodCornerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheGoodCornerUITests.swift; sourceTree = "<group>"; };
+		257E2755307A6095005367C8 /* TheGoodCornerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheGoodCornerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		257E2762307A6692005367C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		257E2766307AACE2005367C8 /* Listing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listing.swift; sourceTree = "<group>"; };
+		257E276B307AADEF005367C8 /* ListingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingRepository.swift; sourceTree = "<group>"; };
+		257E276D307AAEC2005367C8 /* ListingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingCategory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		4061637B2F98F25E008F3A80 /* Exceptions for "TheGoodCorner" folder in "TheGoodCorner" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 4061630C2F98EFCC008F3A80 /* TheGoodCorner */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		4061630F2F98EFCC008F3A80 /* TheGoodCorner */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				4061637B2F98F25E008F3A80 /* Exceptions for "TheGoodCorner" folder in "TheGoodCorner" target */,
-			);
-			path = TheGoodCorner;
-			sourceTree = "<group>";
-		};
-		4061631D2F98EFCE008F3A80 /* TheGoodCornerTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = TheGoodCornerTests;
-			sourceTree = "<group>";
-		};
-		406163272F98EFCE008F3A80 /* TheGoodCornerUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = TheGoodCornerUITests;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
-
 /* Begin PBXFrameworksBuildPhase section */
-		4061630A2F98EFCC008F3A80 /* Frameworks */ = {
+		257E2732307A6091005367C8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		406163172F98EFCE008F3A80 /* Frameworks */ = {
+		257E2742307A6095005367C8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		406163212F98EFCE008F3A80 /* Frameworks */ = {
+		257E274C307A6095005367C8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -85,157 +78,207 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		406163042F98EFCC008F3A80 = {
+		257E272C307A6091005367C8 = {
 			isa = PBXGroup;
 			children = (
-				4061630F2F98EFCC008F3A80 /* TheGoodCorner */,
-				4061631D2F98EFCE008F3A80 /* TheGoodCornerTests */,
-				406163272F98EFCE008F3A80 /* TheGoodCornerUITests */,
-				4061630E2F98EFCC008F3A80 /* Products */,
+				257E2737307A6091005367C8 /* TheGoodCorner */,
+				257E2748307A6095005367C8 /* TheGoodCornerTests */,
+				257E2752307A6095005367C8 /* TheGoodCornerUITests */,
+				257E2736307A6091005367C8 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		4061630E2F98EFCC008F3A80 /* Products */ = {
+		257E2736307A6091005367C8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4061630D2F98EFCC008F3A80 /* TheGoodCorner.app */,
-				4061631A2F98EFCE008F3A80 /* TheGoodCornerTests.xctest */,
-				406163242F98EFCE008F3A80 /* TheGoodCornerUITests.xctest */,
+				257E2735307A6091005367C8 /* TheGoodCorner.app */,
+				257E2745307A6095005367C8 /* TheGoodCornerTests.xctest */,
+				257E274F307A6095005367C8 /* TheGoodCornerUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		257E2737307A6091005367C8 /* TheGoodCorner */ = {
+			isa = PBXGroup;
+			children = (
+				257E2763307AAC9D005367C8 /* Domain */,
+				257E2762307A6692005367C8 /* Info.plist */,
+				257E2738307A6091005367C8 /* TheGoodCornerApp.swift */,
+				257E273A307A6091005367C8 /* ContentView.swift */,
+				257E273C307A6095005367C8 /* Assets.xcassets */,
+				257E273E307A6095005367C8 /* Preview Content */,
+			);
+			path = TheGoodCorner;
+			sourceTree = "<group>";
+		};
+		257E273E307A6095005367C8 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				257E273F307A6095005367C8 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		257E2748307A6095005367C8 /* TheGoodCornerTests */ = {
+			isa = PBXGroup;
+			children = (
+				257E2749307A6095005367C8 /* TheGoodCornerTests.swift */,
+			);
+			path = TheGoodCornerTests;
+			sourceTree = "<group>";
+		};
+		257E2752307A6095005367C8 /* TheGoodCornerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				257E2753307A6095005367C8 /* TheGoodCornerUITests.swift */,
+				257E2755307A6095005367C8 /* TheGoodCornerUITestsLaunchTests.swift */,
+			);
+			path = TheGoodCornerUITests;
+			sourceTree = "<group>";
+		};
+		257E2763307AAC9D005367C8 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				257E2764307AACA8005367C8 /* Entities */,
+				257E2765307AACB6005367C8 /* Repositories */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		257E2764307AACA8005367C8 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				257E2766307AACE2005367C8 /* Listing.swift */,
+				257E276D307AAEC2005367C8 /* ListingCategory.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		257E2765307AACB6005367C8 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				257E276B307AADEF005367C8 /* ListingRepository.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4061630C2F98EFCC008F3A80 /* TheGoodCorner */ = {
+		257E2734307A6091005367C8 /* TheGoodCorner */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4061632E2F98EFCE008F3A80 /* Build configuration list for PBXNativeTarget "TheGoodCorner" */;
+			buildConfigurationList = 257E2759307A6095005367C8 /* Build configuration list for PBXNativeTarget "TheGoodCorner" */;
 			buildPhases = (
-				406163092F98EFCC008F3A80 /* Sources */,
-				4061630A2F98EFCC008F3A80 /* Frameworks */,
-				4061630B2F98EFCC008F3A80 /* Resources */,
+				257E2731307A6091005367C8 /* Sources */,
+				257E2732307A6091005367C8 /* Frameworks */,
+				257E2733307A6091005367C8 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				4061630F2F98EFCC008F3A80 /* TheGoodCorner */,
 			);
 			name = TheGoodCorner;
-			packageProductDependencies = (
-			);
 			productName = TheGoodCorner;
-			productReference = 4061630D2F98EFCC008F3A80 /* TheGoodCorner.app */;
+			productReference = 257E2735307A6091005367C8 /* TheGoodCorner.app */;
 			productType = "com.apple.product-type.application";
 		};
-		406163192F98EFCE008F3A80 /* TheGoodCornerTests */ = {
+		257E2744307A6095005367C8 /* TheGoodCornerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 406163312F98EFCE008F3A80 /* Build configuration list for PBXNativeTarget "TheGoodCornerTests" */;
+			buildConfigurationList = 257E275C307A6095005367C8 /* Build configuration list for PBXNativeTarget "TheGoodCornerTests" */;
 			buildPhases = (
-				406163162F98EFCE008F3A80 /* Sources */,
-				406163172F98EFCE008F3A80 /* Frameworks */,
-				406163182F98EFCE008F3A80 /* Resources */,
+				257E2741307A6095005367C8 /* Sources */,
+				257E2742307A6095005367C8 /* Frameworks */,
+				257E2743307A6095005367C8 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				4061631C2F98EFCE008F3A80 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				4061631D2F98EFCE008F3A80 /* TheGoodCornerTests */,
+				257E2747307A6095005367C8 /* PBXTargetDependency */,
 			);
 			name = TheGoodCornerTests;
-			packageProductDependencies = (
-			);
 			productName = TheGoodCornerTests;
-			productReference = 4061631A2F98EFCE008F3A80 /* TheGoodCornerTests.xctest */;
+			productReference = 257E2745307A6095005367C8 /* TheGoodCornerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		406163232F98EFCE008F3A80 /* TheGoodCornerUITests */ = {
+		257E274E307A6095005367C8 /* TheGoodCornerUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 406163342F98EFCE008F3A80 /* Build configuration list for PBXNativeTarget "TheGoodCornerUITests" */;
+			buildConfigurationList = 257E275F307A6095005367C8 /* Build configuration list for PBXNativeTarget "TheGoodCornerUITests" */;
 			buildPhases = (
-				406163202F98EFCE008F3A80 /* Sources */,
-				406163212F98EFCE008F3A80 /* Frameworks */,
-				406163222F98EFCE008F3A80 /* Resources */,
+				257E274B307A6095005367C8 /* Sources */,
+				257E274C307A6095005367C8 /* Frameworks */,
+				257E274D307A6095005367C8 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				406163262F98EFCE008F3A80 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				406163272F98EFCE008F3A80 /* TheGoodCornerUITests */,
+				257E2751307A6095005367C8 /* PBXTargetDependency */,
 			);
 			name = TheGoodCornerUITests;
-			packageProductDependencies = (
-			);
 			productName = TheGoodCornerUITests;
-			productReference = 406163242F98EFCE008F3A80 /* TheGoodCornerUITests.xctest */;
+			productReference = 257E274F307A6095005367C8 /* TheGoodCornerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		406163052F98EFCC008F3A80 /* Project object */ = {
+		257E272D307A6091005367C8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2640;
-				LastUpgradeCheck = 2640;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
-					4061630C2F98EFCC008F3A80 = {
-						CreatedOnToolsVersion = 26.4;
+					257E2734307A6091005367C8 = {
+						CreatedOnToolsVersion = 15.2;
 					};
-					406163192F98EFCE008F3A80 = {
-						CreatedOnToolsVersion = 26.4;
-						TestTargetID = 4061630C2F98EFCC008F3A80;
+					257E2744307A6095005367C8 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 257E2734307A6091005367C8;
 					};
-					406163232F98EFCE008F3A80 = {
-						CreatedOnToolsVersion = 26.4;
-						TestTargetID = 4061630C2F98EFCC008F3A80;
+					257E274E307A6095005367C8 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 257E2734307A6091005367C8;
 					};
 				};
 			};
-			buildConfigurationList = 406163082F98EFCC008F3A80 /* Build configuration list for PBXProject "TheGoodCorner" */;
+			buildConfigurationList = 257E2730307A6091005367C8 /* Build configuration list for PBXProject "TheGoodCorner" */;
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 406163042F98EFCC008F3A80;
-			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
-			productRefGroup = 4061630E2F98EFCC008F3A80 /* Products */;
+			mainGroup = 257E272C307A6091005367C8;
+			productRefGroup = 257E2736307A6091005367C8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4061630C2F98EFCC008F3A80 /* TheGoodCorner */,
-				406163192F98EFCE008F3A80 /* TheGoodCornerTests */,
-				406163232F98EFCE008F3A80 /* TheGoodCornerUITests */,
+				257E2734307A6091005367C8 /* TheGoodCorner */,
+				257E2744307A6095005367C8 /* TheGoodCornerTests */,
+				257E274E307A6095005367C8 /* TheGoodCornerUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		4061630B2F98EFCC008F3A80 /* Resources */ = {
+		257E2733307A6091005367C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				257E2740307A6095005367C8 /* Preview Assets.xcassets in Resources */,
+				257E273D307A6095005367C8 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		257E2743307A6095005367C8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		406163182F98EFCE008F3A80 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		406163222F98EFCE008F3A80 /* Resources */ = {
+		257E274D307A6095005367C8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -245,44 +288,52 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		406163092F98EFCC008F3A80 /* Sources */ = {
+		257E2731307A6091005367C8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				257E276E307AAEC2005367C8 /* ListingCategory.swift in Sources */,
+				257E273B307A6091005367C8 /* ContentView.swift in Sources */,
+				257E2767307AACE2005367C8 /* Listing.swift in Sources */,
+				257E2739307A6091005367C8 /* TheGoodCornerApp.swift in Sources */,
+				257E276C307AADEF005367C8 /* ListingRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		406163162F98EFCE008F3A80 /* Sources */ = {
+		257E2741307A6095005367C8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				257E274A307A6095005367C8 /* TheGoodCornerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		406163202F98EFCE008F3A80 /* Sources */ = {
+		257E274B307A6095005367C8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				257E2756307A6095005367C8 /* TheGoodCornerUITestsLaunchTests.swift in Sources */,
+				257E2754307A6095005367C8 /* TheGoodCornerUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4061631C2F98EFCE008F3A80 /* PBXTargetDependency */ = {
+		257E2747307A6095005367C8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4061630C2F98EFCC008F3A80 /* TheGoodCorner */;
-			targetProxy = 4061631B2F98EFCE008F3A80 /* PBXContainerItemProxy */;
+			target = 257E2734307A6091005367C8 /* TheGoodCorner */;
+			targetProxy = 257E2746307A6095005367C8 /* PBXContainerItemProxy */;
 		};
-		406163262F98EFCE008F3A80 /* PBXTargetDependency */ = {
+		257E2751307A6095005367C8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4061630C2F98EFCC008F3A80 /* TheGoodCorner */;
-			targetProxy = 406163252F98EFCE008F3A80 /* PBXContainerItemProxy */;
+			target = 257E2734307A6091005367C8 /* TheGoodCorner */;
+			targetProxy = 257E2750307A6095005367C8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		4061632C2F98EFCE008F3A80 /* Debug */ = {
+		257E2757307A6095005367C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -334,7 +385,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -345,7 +396,7 @@
 			};
 			name = Debug;
 		};
-		4061632D2F98EFCE008F3A80 /* Release */ = {
+		257E2758307A6095005367C8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -391,7 +442,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -401,134 +452,138 @@
 			};
 			name = Release;
 		};
-		4061632F2F98EFCE008F3A80 /* Debug */ = {
+		257E275A307A6095005367C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"TheGoodCorner/Preview Content\"";
+				DEVELOPMENT_TEAM = L9ABR6QCK4;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheGoodCorner/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = lbc.TheGoodCorner;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moezchafai.TheGoodCorner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		406163302F98EFCE008F3A80 /* Release */ = {
+		257E275B307A6095005367C8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"TheGoodCorner/Preview Content\"";
+				DEVELOPMENT_TEAM = L9ABR6QCK4;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TheGoodCorner/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = lbc.TheGoodCorner;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moezchafai.TheGoodCorner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
-		406163322F98EFCE008F3A80 /* Debug */ = {
+		257E275D307A6095005367C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L9ABR6QCK4;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = lbc.TheGoodCornerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moezchafai.TheGoodCornerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TheGoodCorner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TheGoodCorner";
 			};
 			name = Debug;
 		};
-		406163332F98EFCE008F3A80 /* Release */ = {
+		257E275E307A6095005367C8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L9ABR6QCK4;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = lbc.TheGoodCornerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moezchafai.TheGoodCornerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TheGoodCorner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TheGoodCorner";
 			};
 			name = Release;
 		};
-		406163352F98EFCE008F3A80 /* Debug */ = {
+		257E2760307A6095005367C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L9ABR6QCK4;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = lbc.TheGoodCornerUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moezchafai.TheGoodCornerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = TheGoodCorner;
 			};
 			name = Debug;
 		};
-		406163362F98EFCE008F3A80 /* Release */ = {
+		257E2761307A6095005367C8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L9ABR6QCK4;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = lbc.TheGoodCornerUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moezchafai.TheGoodCornerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = TheGoodCorner;
@@ -538,43 +593,43 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		406163082F98EFCC008F3A80 /* Build configuration list for PBXProject "TheGoodCorner" */ = {
+		257E2730307A6091005367C8 /* Build configuration list for PBXProject "TheGoodCorner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4061632C2F98EFCE008F3A80 /* Debug */,
-				4061632D2F98EFCE008F3A80 /* Release */,
+				257E2757307A6095005367C8 /* Debug */,
+				257E2758307A6095005367C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4061632E2F98EFCE008F3A80 /* Build configuration list for PBXNativeTarget "TheGoodCorner" */ = {
+		257E2759307A6095005367C8 /* Build configuration list for PBXNativeTarget "TheGoodCorner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4061632F2F98EFCE008F3A80 /* Debug */,
-				406163302F98EFCE008F3A80 /* Release */,
+				257E275A307A6095005367C8 /* Debug */,
+				257E275B307A6095005367C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		406163312F98EFCE008F3A80 /* Build configuration list for PBXNativeTarget "TheGoodCornerTests" */ = {
+		257E275C307A6095005367C8 /* Build configuration list for PBXNativeTarget "TheGoodCornerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				406163322F98EFCE008F3A80 /* Debug */,
-				406163332F98EFCE008F3A80 /* Release */,
+				257E275D307A6095005367C8 /* Debug */,
+				257E275E307A6095005367C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		406163342F98EFCE008F3A80 /* Build configuration list for PBXNativeTarget "TheGoodCornerUITests" */ = {
+		257E275F307A6095005367C8 /* Build configuration list for PBXNativeTarget "TheGoodCornerUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				406163352F98EFCE008F3A80 /* Debug */,
-				406163362F98EFCE008F3A80 /* Release */,
+				257E2760307A6095005367C8 /* Debug */,
+				257E2761307A6095005367C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 406163052F98EFCC008F3A80 /* Project object */;
+	rootObject = 257E272D307A6091005367C8 /* Project object */;
 }

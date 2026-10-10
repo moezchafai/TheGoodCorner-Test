@@ -1,3 +1,10 @@
+//
+//  TheGoodCornerTests.swift
+//  TheGoodCornerTests
+//
+//  Created by Moez bachagha on 10/10/2026.
+//
+
 import XCTest
 @testable import TheGoodCorner
 
@@ -17,8 +24,6 @@ final class TheGoodCornerTests: XCTestCase {
         // Any test you write for XCTest can be annotated as throws and async.
         // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
         // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-        // XCTest Documentation
-        // https://developer.apple.com/documentation/xctest
     }
 
     func testPerformanceExample() throws {
