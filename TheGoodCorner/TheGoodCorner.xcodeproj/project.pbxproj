@@ -17,6 +17,10 @@
 		257E2767307AACE2005367C8 /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2766307AACE2005367C8 /* Listing.swift */; };
 		257E276C307AADEF005367C8 /* ListingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E276B307AADEF005367C8 /* ListingRepository.swift */; };
 		257E276E307AAEC2005367C8 /* ListingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E276D307AAEC2005367C8 /* ListingCategory.swift */; };
+		257E2771307AE06D005367C8 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2770307AE06D005367C8 /* NetworkError.swift */; };
+		257E2774307AE0BE005367C8 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2773307AE0BE005367C8 /* Endpoint.swift */; };
+		257E2776307AE102005367C8 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2775307AE102005367C8 /* HTTPClient.swift */; };
+		257E2778307AE12E005367C8 /* ListingAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2777307AE12E005367C8 /* ListingAPIClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,10 @@
 		257E2766307AACE2005367C8 /* Listing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listing.swift; sourceTree = "<group>"; };
 		257E276B307AADEF005367C8 /* ListingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingRepository.swift; sourceTree = "<group>"; };
 		257E276D307AAEC2005367C8 /* ListingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingCategory.swift; sourceTree = "<group>"; };
+		257E2770307AE06D005367C8 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		257E2773307AE0BE005367C8 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		257E2775307AE102005367C8 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		257E2777307AE12E005367C8 /* ListingAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingAPIClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				257E2763307AAC9D005367C8 /* Domain */,
+				257E276F307AE04C005367C8 /* Data */,
 				257E2762307A6692005367C8 /* Info.plist */,
 				257E2738307A6091005367C8 /* TheGoodCornerApp.swift */,
 				257E273A307A6091005367C8 /* ContentView.swift */,
@@ -160,6 +169,25 @@
 				257E276B307AADEF005367C8 /* ListingRepository.swift */,
 			);
 			path = Repositories;
+			sourceTree = "<group>";
+		};
+		257E276F307AE04C005367C8 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				257E2772307AE09E005367C8 /* API */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		257E2772307AE09E005367C8 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				257E2770307AE06D005367C8 /* NetworkError.swift */,
+				257E2773307AE0BE005367C8 /* Endpoint.swift */,
+				257E2775307AE102005367C8 /* HTTPClient.swift */,
+				257E2777307AE12E005367C8 /* ListingAPIClient.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,9 +320,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				257E2778307AE12E005367C8 /* ListingAPIClient.swift in Sources */,
+				257E2774307AE0BE005367C8 /* Endpoint.swift in Sources */,
 				257E276E307AAEC2005367C8 /* ListingCategory.swift in Sources */,
+				257E2776307AE102005367C8 /* HTTPClient.swift in Sources */,
 				257E273B307A6091005367C8 /* ContentView.swift in Sources */,
 				257E2767307AACE2005367C8 /* Listing.swift in Sources */,
+				257E2771307AE06D005367C8 /* NetworkError.swift in Sources */,
 				257E2739307A6091005367C8 /* TheGoodCornerApp.swift in Sources */,
 				257E276C307AADEF005367C8 /* ListingRepository.swift in Sources */,
 			);
