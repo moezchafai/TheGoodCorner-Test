@@ -50,7 +50,7 @@ struct ListingRowView: View {
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
                     Text(listing.priceText)
                         .font(.system(.callout, design: .rounded, weight: .bold))
-                        .foregroundStyle(.primary)
+                        .foregroundStyle(Color.brandBlueDark)
 
                     if listing.isUrgent {
                         UrgentBadge()

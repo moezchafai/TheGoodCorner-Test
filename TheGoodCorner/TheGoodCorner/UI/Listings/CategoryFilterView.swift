@@ -37,7 +37,7 @@ struct CategoryFilterView: View {
                 .font(.subheadline.weight(.medium))
                 .padding(.horizontal, 14)
                 .padding(.vertical, 8)
-                .background(isSelected ? Color.accentColor : Color(.secondarySystemBackground))
+                .background(isSelected ? Color.brandBlue : Color.chipBackground)
                 .foregroundStyle(isSelected ? Color.white : Color.primary)
                 .clipShape(Capsule())
         }

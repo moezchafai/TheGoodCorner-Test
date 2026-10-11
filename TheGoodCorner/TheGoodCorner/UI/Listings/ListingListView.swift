@@ -19,8 +19,13 @@ struct ListingListView: View {
         NavigationStack {
             content
                 .navigationTitle("Annonces")
+                .navigationDestination(for: Listing.self) { listing in
+                    ListingDetailsView(listing: listing,
+                                       categoryName: viewModel.categoryName(for: listing))
+                }
         }
         .onAppear { viewModel.loadIfNeeded() }
+        .tint(Color.brandBlueDark)
     }
 
     @ViewBuilder
@@ -45,10 +50,14 @@ struct ListingListView: View {
 
     private var list: some View {
         List(viewModel.visibleListings) { listing in
-            ListingRowView(listing: listing,
-                           categoryName: viewModel.categoryName(for: listing))
+            NavigationLink(value: listing) {
+                ListingRowView(listing: listing,
+                               categoryName: viewModel.categoryName(for: listing))
+            }
+            .accessibilityHint("Ouvre le détail de l'annonce")
         }
         .listStyle(.plain)
+        .background(Color.screenBackground)
     }
 
     @ViewBuilder
