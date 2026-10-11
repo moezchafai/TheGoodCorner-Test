@@ -25,6 +25,12 @@
 		257E277D307AE793005367C8 /* ListingDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E277C307AE793005367C8 /* ListingDTO.swift */; };
 		257E2781307AE7AE005367C8 /* CategoryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2780307AE7AE005367C8 /* CategoryDTO.swift */; };
 		257E2784307B893A005367C8 /* ListingRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2783307B893A005367C8 /* ListingRepositoryImpl.swift */; };
+		257E2788307B8ED6005367C8 /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2787307B8ED6005367C8 /* ViewState.swift */; };
+		257E278A307B8F02005367C8 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2789307B8F02005367C8 /* LoadingView.swift */; };
+		257E278C307B8F27005367C8 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E278B307B8F27005367C8 /* ErrorView.swift */; };
+		257E278E307B8F44005367C8 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E278D307B8F44005367C8 /* EmptyStateView.swift */; };
+		257E2790307B8F8F005367C8 /* ListingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E278F307B8F8F005367C8 /* ListingImageView.swift */; };
+		257E2792307B8FB9005367C8 /* UrgentBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2791307B8FB9005367C8 /* UrgentBadge.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +73,12 @@
 		257E277C307AE793005367C8 /* ListingDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingDTO.swift; sourceTree = "<group>"; };
 		257E2780307AE7AE005367C8 /* CategoryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDTO.swift; sourceTree = "<group>"; };
 		257E2783307B893A005367C8 /* ListingRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingRepositoryImpl.swift; sourceTree = "<group>"; };
+		257E2787307B8ED6005367C8 /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
+		257E2789307B8F02005367C8 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		257E278B307B8F27005367C8 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		257E278D307B8F44005367C8 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		257E278F307B8F8F005367C8 /* ListingImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingImageView.swift; sourceTree = "<group>"; };
+		257E2791307B8FB9005367C8 /* UrgentBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrgentBadge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +131,7 @@
 			children = (
 				257E2763307AAC9D005367C8 /* Domain */,
 				257E276F307AE04C005367C8 /* Data */,
+				257E2785307B8E6F005367C8 /* UI */,
 				257E2762307A6692005367C8 /* Info.plist */,
 				257E2738307A6091005367C8 /* TheGoodCornerApp.swift */,
 				257E273A307A6091005367C8 /* ContentView.swift */,
@@ -216,6 +229,27 @@
 				257E2783307B893A005367C8 /* ListingRepositoryImpl.swift */,
 			);
 			path = Repositories;
+			sourceTree = "<group>";
+		};
+		257E2785307B8E6F005367C8 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				257E2786307B8EC9005367C8 /* Components */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		257E2786307B8EC9005367C8 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				257E2787307B8ED6005367C8 /* ViewState.swift */,
+				257E2789307B8F02005367C8 /* LoadingView.swift */,
+				257E278B307B8F27005367C8 /* ErrorView.swift */,
+				257E278D307B8F44005367C8 /* EmptyStateView.swift */,
+				257E278F307B8F8F005367C8 /* ListingImageView.swift */,
+				257E2791307B8FB9005367C8 /* UrgentBadge.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -353,14 +387,20 @@
 				257E2774307AE0BE005367C8 /* Endpoint.swift in Sources */,
 				257E276E307AAEC2005367C8 /* ListingCategory.swift in Sources */,
 				257E277B307AE781005367C8 /* ListingsResponseDTO.swift in Sources */,
+				257E278E307B8F44005367C8 /* EmptyStateView.swift in Sources */,
 				257E2781307AE7AE005367C8 /* CategoryDTO.swift in Sources */,
 				257E2776307AE102005367C8 /* HTTPClient.swift in Sources */,
 				257E2784307B893A005367C8 /* ListingRepositoryImpl.swift in Sources */,
+				257E278A307B8F02005367C8 /* LoadingView.swift in Sources */,
+				257E2788307B8ED6005367C8 /* ViewState.swift in Sources */,
 				257E273B307A6091005367C8 /* ContentView.swift in Sources */,
 				257E2767307AACE2005367C8 /* Listing.swift in Sources */,
 				257E2771307AE06D005367C8 /* NetworkError.swift in Sources */,
 				257E2739307A6091005367C8 /* TheGoodCornerApp.swift in Sources */,
 				257E276C307AADEF005367C8 /* ListingRepository.swift in Sources */,
+				257E2792307B8FB9005367C8 /* UrgentBadge.swift in Sources */,
+				257E278C307B8F27005367C8 /* ErrorView.swift in Sources */,
+				257E2790307B8F8F005367C8 /* ListingImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
