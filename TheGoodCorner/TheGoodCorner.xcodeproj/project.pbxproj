@@ -24,6 +24,7 @@
 		257E277B307AE781005367C8 /* ListingsResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E277A307AE781005367C8 /* ListingsResponseDTO.swift */; };
 		257E277D307AE793005367C8 /* ListingDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E277C307AE793005367C8 /* ListingDTO.swift */; };
 		257E2781307AE7AE005367C8 /* CategoryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2780307AE7AE005367C8 /* CategoryDTO.swift */; };
+		257E2784307B893A005367C8 /* ListingRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2783307B893A005367C8 /* ListingRepositoryImpl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		257E277A307AE781005367C8 /* ListingsResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsResponseDTO.swift; sourceTree = "<group>"; };
 		257E277C307AE793005367C8 /* ListingDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingDTO.swift; sourceTree = "<group>"; };
 		257E2780307AE7AE005367C8 /* CategoryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDTO.swift; sourceTree = "<group>"; };
+		257E2783307B893A005367C8 /* ListingRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingRepositoryImpl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +182,7 @@
 		257E276F307AE04C005367C8 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				257E2782307B8926005367C8 /* Repositories */,
 				257E2779307AE770005367C8 /* DTOs */,
 				257E2772307AE09E005367C8 /* API */,
 			);
@@ -205,6 +208,14 @@
 				257E2780307AE7AE005367C8 /* CategoryDTO.swift */,
 			);
 			path = DTOs;
+			sourceTree = "<group>";
+		};
+		257E2782307B8926005367C8 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				257E2783307B893A005367C8 /* ListingRepositoryImpl.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -344,6 +355,7 @@
 				257E277B307AE781005367C8 /* ListingsResponseDTO.swift in Sources */,
 				257E2781307AE7AE005367C8 /* CategoryDTO.swift in Sources */,
 				257E2776307AE102005367C8 /* HTTPClient.swift in Sources */,
+				257E2784307B893A005367C8 /* ListingRepositoryImpl.swift in Sources */,
 				257E273B307A6091005367C8 /* ContentView.swift in Sources */,
 				257E2767307AACE2005367C8 /* Listing.swift in Sources */,
 				257E2771307AE06D005367C8 /* NetworkError.swift in Sources */,
