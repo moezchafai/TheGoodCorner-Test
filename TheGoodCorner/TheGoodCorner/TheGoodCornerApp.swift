@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct TheGoodCornerApp: App {
+    private let container = AppContainer.live()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ListingListView(viewModel: container.makeListingListViewModel())
         }
     }
 }
