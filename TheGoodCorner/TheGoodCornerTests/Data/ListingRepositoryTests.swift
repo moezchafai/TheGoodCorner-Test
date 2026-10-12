@@ -67,7 +67,19 @@ final class ListingRepositoryTests: XCTestCase {
         XCTAssertEqual(listings[0].description, "Bon état")
         XCTAssertEqual(listings[1].description, "")
     }
+    /// Le repository transmet la recherche à l'API, sans la modifier.
+    func test_fetchListings_withQuery_forwardsQueryToTheAPI() throws {
+        // Given
+        let client = clientReturningListings()
 
+        // When
+        _ = syncResult(of: makeSUT(client).fetchListings(query: "vélo"))
+
+        // Then
+        let url = try XCTUnwrap(client.requests.first?.url)
+        let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
+        XCTAssertEqual(items?.first?.value, "vélo")
+    }
     // MARK: - Catégories
 
     func test_fetchCategories_mapsToDomain() throws {

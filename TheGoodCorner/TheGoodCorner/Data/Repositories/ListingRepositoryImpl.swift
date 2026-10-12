@@ -20,8 +20,8 @@ final class ListingRepositoryImpl: ListingRepository {
         self.baseURL = baseURL
     }
 
-    func fetchListings() -> AnyPublisher<[Listing], Error> {
-        api.fetchListings()
+    func fetchListings(query: String?) -> AnyPublisher<[Listing], Error> {
+        api.fetchListings(query: query)
             .map { [baseURL] response in
                 response.items.map { $0.toDomain(baseURL: baseURL) }
             }

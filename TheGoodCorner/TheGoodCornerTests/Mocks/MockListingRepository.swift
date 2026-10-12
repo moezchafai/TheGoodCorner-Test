@@ -11,11 +11,19 @@ import Combine
 
 final class MockListingRepository: ListingRepository {
     var listingsResult: Result<[Listing], Error> = .success([])
+    // Résultats propres à une recherche : `listingsByQuery["vélo"] = [...]`.
+    var listingsByQuery: [String: [Listing]] = [:]
     var categoriesResult: Result<[ListingCategory], Error> = .success([])
-    private(set) var fetchListingsCallCount = 0
 
-    func fetchListings() -> AnyPublisher<[Listing], Error> {
+    private(set) var fetchListingsCallCount = 0
+    private(set) var receivedQueries: [String?] = []
+
+    func fetchListings(query: String?) -> AnyPublisher<[Listing], Error> {
         fetchListingsCallCount += 1
+        receivedQueries.append(query)
+        if let query, let listings = listingsByQuery[query] {
+            return Just(listings).setFailureType(to: Error.self).eraseToAnyPublisher()
+        }
         return listingsResult.publisher.eraseToAnyPublisher()
     }
 
