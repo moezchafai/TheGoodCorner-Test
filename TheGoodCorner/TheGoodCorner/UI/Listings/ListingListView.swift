@@ -19,6 +19,7 @@ struct ListingListView: View {
         NavigationStack {
             content
                 .navigationTitle("Annonces")
+                .searchable(text: $viewModel.searchText, prompt: "Rechercher une annonce")
                 .navigationDestination(for: Listing.self) { listing in
                     ListingDetailsView(listing: listing,
                                        categoryName: viewModel.categoryName(for: listing))
@@ -39,6 +40,7 @@ struct ListingListView: View {
             VStack(spacing: 0) {
                 CategoryFilterView(categories: viewModel.categories,
                                    selection: $viewModel.selectedCategory)
+                searchProgress
                 if viewModel.visibleListings.isEmpty {
                     emptyState
                 } else {
@@ -60,19 +62,53 @@ struct ListingListView: View {
         .background(Color.screenBackground)
     }
 
+    // Barre fine pendant une recherche. Elle réserve toujours sa place
+     // (opacité) pour que la liste ne saute pas quand elle apparaît.
+     private var searchProgress: some View {
+         ProgressView()
+             .progressViewStyle(.linear)
+             .padding(.horizontal)
+             .opacity(viewModel.isSearching ? 1 : 0)
+             .accessibilityHidden(!viewModel.isSearching)
+             .accessibilityLabel("Recherche en cours")
+     }
+
+     private var trimmedSearch: String {
+         viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+     }
+
     @ViewBuilder
     private var emptyState: some View {
-        if let category = viewModel.selectedCategory {
-            EmptyStateView(title: "Aucune annonce",
-                           message: "Il n'y a pas d'annonce dans la catégorie « \(category.name) ».",
-                           actionTitle: "Voir toutes les annonces") {
+        if !trimmedSearch.isEmpty {
+            EmptyStateView(
+                title: "Aucun résultat",
+                message: noResultsMessage,
+                actionTitle: "Effacer la recherche"
+            ) {
+                viewModel.searchText = ""
+            }
+        } else if let category = viewModel.selectedCategory {
+            EmptyStateView(
+                title: "Aucune annonce",
+                message: "Il n'y a pas d'annonce dans la catégorie « \(category.name) ».",
+                actionTitle: "Voir toutes les annonces"
+            ) {
                 viewModel.selectedCategory = nil
             }
         } else {
-            EmptyStateView(title: "Aucune annonce pour le moment",
-                           message: "Revenez un peu plus tard.",
-                           actionTitle: "Actualiser",
-                           action: viewModel.load)
+            EmptyStateView(
+                title: "Aucune annonce pour le moment",
+                message: "Revenez un peu plus tard.",
+                actionTitle: "Actualiser",
+                action: viewModel.load
+            )
         }
+    }
+
+    private var noResultsMessage: String {
+        if let category = viewModel.selectedCategory {
+            return "Aucune annonce « \(trimmedSearch) » dans la catégorie « \(category.name) »."
+        }
+        return "Aucune annonce ne correspond à « \(trimmedSearch) »."
     }
 }

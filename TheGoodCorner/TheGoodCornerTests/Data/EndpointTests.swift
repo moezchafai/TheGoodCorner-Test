@@ -63,4 +63,10 @@ final class EndpointTests: XCTestCase {
 
         XCTAssertNil(queryItems(of: url))
     }
+    // Le serveur refuse le caractère brut `é` : l'URL doit l'encoder (`%C3%A9`).
+    func test_listings_withAccentedQuery_percentEncodesTheURL() throws {
+        let url = try XCTUnwrap(Endpoint.listings(query: "vélo").url(baseURL: baseURL))
+
+        XCTAssertEqual(url.absoluteString, "http://localhost:8080/listings?query=v%C3%A9lo")
+       }
 }

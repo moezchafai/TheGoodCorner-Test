@@ -9,6 +9,13 @@ import Foundation
 import Combine
 
 protocol ListingRepository {
-    func fetchListings() -> AnyPublisher<[Listing], Error>
+    // `query` : texte de recherche envoyé au serveur (nil = toutes les annonces).
+    func fetchListings(query: String?) -> AnyPublisher<[Listing], Error>
     func fetchCategories() -> AnyPublisher<[ListingCategory], Error>
+}
+
+extension ListingRepository {
+    func fetchListings() -> AnyPublisher<[Listing], Error> {
+        fetchListings(query: nil)
+    }
 }

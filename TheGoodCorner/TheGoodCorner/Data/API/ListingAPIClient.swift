@@ -10,8 +10,14 @@ import Foundation
 import Combine
 
 protocol ListingAPI {
-    func fetchListings() -> AnyPublisher<ListingsResponseDTO, NetworkError>
+    func fetchListings(query: String?) -> AnyPublisher<ListingsResponseDTO, NetworkError>
     func fetchCategories() -> AnyPublisher<[CategoryDTO], NetworkError>
+}
+
+extension ListingAPI {
+    func fetchListings() -> AnyPublisher<ListingsResponseDTO, NetworkError> {
+        fetchListings(query: nil)
+    }
 }
 
 final class ListingAPIClient: ListingAPI {
@@ -29,8 +35,8 @@ final class ListingAPIClient: ListingAPI {
 
     // MARK: - ListingAPI
 
-    func fetchListings() -> AnyPublisher<ListingsResponseDTO, NetworkError> {
-        request(.listings())
+    func fetchListings(query: String?) -> AnyPublisher<ListingsResponseDTO, NetworkError> {
+        request(.listings(query: query))
     }
 
     func fetchCategories() -> AnyPublisher<[CategoryDTO], NetworkError> {

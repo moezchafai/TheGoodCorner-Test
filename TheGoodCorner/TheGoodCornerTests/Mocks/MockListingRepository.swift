@@ -5,17 +5,39 @@
 //  Created by Moez bachagha on 11/10/2026.
 //
 
-import Foundation
 import Combine
+import Foundation
 @testable import TheGoodCorner
 
 final class MockListingRepository: ListingRepository {
+
+    /// Réponse par défaut, pour toute requête sans réponse dédiée.
     var listingsResult: Result<[Listing], Error> = .success([])
+
+    /// Réponses propres à une recherche : `listingsByQuery["vélo"] = [...]`.
+    var listingsByQuery: [String: [Listing]] = [:]
+
+    /// Réponses pilotées à la main : permettent de simuler une requête lente
+    /// (rien n'est émis tant que le test n'appelle pas `send`).
+    var subjectsByQuery: [String: PassthroughSubject<[Listing], Error>] = [:]
+
     var categoriesResult: Result<[ListingCategory], Error> = .success([])
+
     private(set) var fetchListingsCallCount = 0
 
-    func fetchListings() -> AnyPublisher<[Listing], Error> {
+    /// Textes de recherche reçus, dans l'ordre (`nil` = chargement sans recherche).
+    private(set) var receivedQueries: [String?] = []
+
+    func fetchListings(query: String?) -> AnyPublisher<[Listing], Error> {
         fetchListingsCallCount += 1
+        receivedQueries.append(query)
+
+        if let query, let subject = subjectsByQuery[query] {
+            return subject.eraseToAnyPublisher()
+        }
+        if let query, let listings = listingsByQuery[query] {
+            return Just(listings).setFailureType(to: Error.self).eraseToAnyPublisher()
+        }
         return listingsResult.publisher.eraseToAnyPublisher()
     }
 
