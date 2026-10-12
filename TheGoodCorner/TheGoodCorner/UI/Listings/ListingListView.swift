@@ -10,6 +10,8 @@ import SwiftUI
 
 struct ListingListView: View {
     @StateObject private var viewModel: ListingListViewModel
+    @AppStorage(AppearanceMode.storageKey) private var appearanceRaw = AppearanceMode.system.rawValue
+    @Environment(\.colorScheme) private var colorScheme
 
     init(viewModel: @autoclosure @escaping () -> ListingListViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel())
@@ -20,6 +22,14 @@ struct ListingListView: View {
             content
                 .navigationTitle("Annonces")
                 .searchable(text: $viewModel.searchText, prompt: "Rechercher une annonce")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: toggleAppearance) {
+                            Image(systemName: colorScheme == .dark ? "sun.max" : "moon")
+                        }
+                        .accessibilityLabel(colorScheme == .dark ? "Passer en mode clair" : "Passer en mode sombre")
+                    }
+                }
                 .navigationDestination(for: Listing.self) { listing in
                     ListingDetailsView(listing: listing,
                                        categoryName: viewModel.categoryName(for: listing))
@@ -76,6 +86,10 @@ struct ListingListView: View {
      private var trimmedSearch: String {
          viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines)
      }
+    private func toggleAppearance() {
+        let next: AppearanceMode = (colorScheme == .dark) ? .light : .dark
+        appearanceRaw = next.rawValue
+    }
 
     @ViewBuilder
     private var emptyState: some View {
