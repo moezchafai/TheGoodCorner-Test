@@ -11,9 +11,6 @@
 		257E273B307A6091005367C8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E273A307A6091005367C8 /* ContentView.swift */; };
 		257E273D307A6095005367C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257E273C307A6095005367C8 /* Assets.xcassets */; };
 		257E2740307A6095005367C8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 257E273F307A6095005367C8 /* Preview Assets.xcassets */; };
-		257E274A307A6095005367C8 /* TheGoodCornerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2749307A6095005367C8 /* TheGoodCornerTests.swift */; };
-		257E2754307A6095005367C8 /* TheGoodCornerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2753307A6095005367C8 /* TheGoodCornerUITests.swift */; };
-		257E2756307A6095005367C8 /* TheGoodCornerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2755307A6095005367C8 /* TheGoodCornerUITestsLaunchTests.swift */; };
 		257E2767307AACE2005367C8 /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E2766307AACE2005367C8 /* Listing.swift */; };
 		257E276C307AADEF005367C8 /* ListingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E276B307AADEF005367C8 /* ListingRepository.swift */; };
 		257E276E307AAEC2005367C8 /* ListingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E276D307AAEC2005367C8 /* ListingCategory.swift */; };
@@ -43,17 +40,13 @@
 		257E27AB307BE1D7005367C8 /* Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27AA307BE1D7005367C8 /* Fixtures.swift */; };
 		257E27AD307BE21E005367C8 /* MockHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27AC307BE21E005367C8 /* MockHTTPClient.swift */; };
 		257E27AF307BE278005367C8 /* MockListingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27AE307BE278005367C8 /* MockListingRepository.swift */; };
+		257E27B2307CE432005367C8 /* EndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27B1307CE432005367C8 /* EndpointTests.swift */; };
+		257E27B4307CE54C005367C8 /* ListingAPIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27B3307CE54C005367C8 /* ListingAPIClientTests.swift */; };
+		257E27B6307CE5AF005367C8 /* ListingRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27B5307CE5AF005367C8 /* ListingRepositoryTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		257E2746307A6095005367C8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 257E272D307A6091005367C8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 257E2734307A6091005367C8;
-			remoteInfo = TheGoodCorner;
-		};
-		257E2750307A6095005367C8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 257E272D307A6091005367C8 /* Project object */;
 			proxyType = 1;
@@ -69,10 +62,6 @@
 		257E273C307A6095005367C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		257E273F307A6095005367C8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		257E2745307A6095005367C8 /* TheGoodCornerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheGoodCornerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		257E2749307A6095005367C8 /* TheGoodCornerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheGoodCornerTests.swift; sourceTree = "<group>"; };
-		257E274F307A6095005367C8 /* TheGoodCornerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheGoodCornerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		257E2753307A6095005367C8 /* TheGoodCornerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheGoodCornerUITests.swift; sourceTree = "<group>"; };
-		257E2755307A6095005367C8 /* TheGoodCornerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheGoodCornerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		257E2762307A6692005367C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		257E2766307AACE2005367C8 /* Listing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listing.swift; sourceTree = "<group>"; };
 		257E276B307AADEF005367C8 /* ListingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingRepository.swift; sourceTree = "<group>"; };
@@ -103,6 +92,9 @@
 		257E27AA307BE1D7005367C8 /* Fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fixtures.swift; sourceTree = "<group>"; };
 		257E27AC307BE21E005367C8 /* MockHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHTTPClient.swift; sourceTree = "<group>"; };
 		257E27AE307BE278005367C8 /* MockListingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockListingRepository.swift; sourceTree = "<group>"; };
+		257E27B1307CE432005367C8 /* EndpointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointTests.swift; sourceTree = "<group>"; };
+		257E27B3307CE54C005367C8 /* ListingAPIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingAPIClientTests.swift; sourceTree = "<group>"; };
+		257E27B5307CE5AF005367C8 /* ListingRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingRepositoryTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,13 +112,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		257E274C307A6095005367C8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -135,7 +120,6 @@
 			children = (
 				257E2737307A6091005367C8 /* TheGoodCorner */,
 				257E2748307A6095005367C8 /* TheGoodCornerTests */,
-				257E2752307A6095005367C8 /* TheGoodCornerUITests */,
 				257E2736307A6091005367C8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -145,7 +129,6 @@
 			children = (
 				257E2735307A6091005367C8 /* TheGoodCorner.app */,
 				257E2745307A6095005367C8 /* TheGoodCornerTests.xctest */,
-				257E274F307A6095005367C8 /* TheGoodCornerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -177,20 +160,11 @@
 		257E2748307A6095005367C8 /* TheGoodCornerTests */ = {
 			isa = PBXGroup;
 			children = (
+				257E27B0307CE3E9005367C8 /* Data */,
 				257E27A6307BE0C5005367C8 /* Helpers */,
 				257E27A7307BE0D3005367C8 /* Mocks */,
-				257E2749307A6095005367C8 /* TheGoodCornerTests.swift */,
 			);
 			path = TheGoodCornerTests;
-			sourceTree = "<group>";
-		};
-		257E2752307A6095005367C8 /* TheGoodCornerUITests */ = {
-			isa = PBXGroup;
-			children = (
-				257E2753307A6095005367C8 /* TheGoodCornerUITests.swift */,
-				257E2755307A6095005367C8 /* TheGoodCornerUITestsLaunchTests.swift */,
-			);
-			path = TheGoodCornerUITests;
 			sourceTree = "<group>";
 		};
 		257E2763307AAC9D005367C8 /* Domain */ = {
@@ -328,6 +302,16 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
+		257E27B0307CE3E9005367C8 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				257E27B1307CE432005367C8 /* EndpointTests.swift */,
+				257E27B3307CE54C005367C8 /* ListingAPIClientTests.swift */,
+				257E27B5307CE5AF005367C8 /* ListingRepositoryTests.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -366,24 +350,6 @@
 			productReference = 257E2745307A6095005367C8 /* TheGoodCornerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		257E274E307A6095005367C8 /* TheGoodCornerUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 257E275F307A6095005367C8 /* Build configuration list for PBXNativeTarget "TheGoodCornerUITests" */;
-			buildPhases = (
-				257E274B307A6095005367C8 /* Sources */,
-				257E274C307A6095005367C8 /* Frameworks */,
-				257E274D307A6095005367C8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				257E2751307A6095005367C8 /* PBXTargetDependency */,
-			);
-			name = TheGoodCornerUITests;
-			productName = TheGoodCornerUITests;
-			productReference = 257E274F307A6095005367C8 /* TheGoodCornerUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -398,10 +364,6 @@
 						CreatedOnToolsVersion = 15.2;
 					};
 					257E2744307A6095005367C8 = {
-						CreatedOnToolsVersion = 15.2;
-						TestTargetID = 257E2734307A6091005367C8;
-					};
-					257E274E307A6095005367C8 = {
 						CreatedOnToolsVersion = 15.2;
 						TestTargetID = 257E2734307A6091005367C8;
 					};
@@ -422,7 +384,6 @@
 			targets = (
 				257E2734307A6091005367C8 /* TheGoodCorner */,
 				257E2744307A6095005367C8 /* TheGoodCornerTests */,
-				257E274E307A6095005367C8 /* TheGoodCornerUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -438,13 +399,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		257E2743307A6095005367C8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		257E274D307A6095005367C8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -493,19 +447,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				257E27AD307BE21E005367C8 /* MockHTTPClient.swift in Sources */,
-				257E274A307A6095005367C8 /* TheGoodCornerTests.swift in Sources */,
+				257E27B4307CE54C005367C8 /* ListingAPIClientTests.swift in Sources */,
 				257E27A9307BE115005367C8 /* Publisher+Sync.swift in Sources */,
+				257E27B6307CE5AF005367C8 /* ListingRepositoryTests.swift in Sources */,
 				257E27AB307BE1D7005367C8 /* Fixtures.swift in Sources */,
+				257E27B2307CE432005367C8 /* EndpointTests.swift in Sources */,
 				257E27AF307BE278005367C8 /* MockListingRepository.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		257E274B307A6095005367C8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				257E2756307A6095005367C8 /* TheGoodCornerUITestsLaunchTests.swift in Sources */,
-				257E2754307A6095005367C8 /* TheGoodCornerUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,11 +463,6 @@
 			isa = PBXTargetDependency;
 			target = 257E2734307A6091005367C8 /* TheGoodCorner */;
 			targetProxy = 257E2746307A6095005367C8 /* PBXContainerItemProxy */;
-		};
-		257E2751307A6095005367C8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 257E2734307A6091005367C8 /* TheGoodCorner */;
-			targetProxy = 257E2750307A6095005367C8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -746,42 +688,6 @@
 			};
 			name = Release;
 		};
-		257E2760307A6095005367C8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L9ABR6QCK4;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moezchafai.TheGoodCornerUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = TheGoodCorner;
-			};
-			name = Debug;
-		};
-		257E2761307A6095005367C8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L9ABR6QCK4;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.moezchafai.TheGoodCornerUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = TheGoodCorner;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -808,15 +714,6 @@
 			buildConfigurations = (
 				257E275D307A6095005367C8 /* Debug */,
 				257E275E307A6095005367C8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		257E275F307A6095005367C8 /* Build configuration list for PBXNativeTarget "TheGoodCornerUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				257E2760307A6095005367C8 /* Debug */,
-				257E2761307A6095005367C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
