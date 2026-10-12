@@ -43,6 +43,7 @@
 		257E27B2307CE432005367C8 /* EndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27B1307CE432005367C8 /* EndpointTests.swift */; };
 		257E27B4307CE54C005367C8 /* ListingAPIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27B3307CE54C005367C8 /* ListingAPIClientTests.swift */; };
 		257E27B6307CE5AF005367C8 /* ListingRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27B5307CE5AF005367C8 /* ListingRepositoryTests.swift */; };
+		257E27B9307CF2A2005367C8 /* ListingListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27B8307CF2A2005367C8 /* ListingListViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		257E27B1307CE432005367C8 /* EndpointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointTests.swift; sourceTree = "<group>"; };
 		257E27B3307CE54C005367C8 /* ListingAPIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingAPIClientTests.swift; sourceTree = "<group>"; };
 		257E27B5307CE5AF005367C8 /* ListingRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingRepositoryTests.swift; sourceTree = "<group>"; };
+		257E27B8307CF2A2005367C8 /* ListingListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingListViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 		257E2748307A6095005367C8 /* TheGoodCornerTests */ = {
 			isa = PBXGroup;
 			children = (
+				257E27B7307CF263005367C8 /* UI */,
 				257E27B0307CE3E9005367C8 /* Data */,
 				257E27A6307BE0C5005367C8 /* Helpers */,
 				257E27A7307BE0D3005367C8 /* Mocks */,
@@ -312,6 +315,14 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		257E27B7307CF263005367C8 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				257E27B8307CF2A2005367C8 /* ListingListViewModelTests.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -453,6 +464,7 @@
 				257E27AB307BE1D7005367C8 /* Fixtures.swift in Sources */,
 				257E27B2307CE432005367C8 /* EndpointTests.swift in Sources */,
 				257E27AF307BE278005367C8 /* MockListingRepository.swift in Sources */,
+				257E27B9307CF2A2005367C8 /* ListingListViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
