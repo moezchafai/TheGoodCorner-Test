@@ -46,6 +46,9 @@
 		257E27B9307CF2A2005367C8 /* ListingListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27B8307CF2A2005367C8 /* ListingListViewModelTests.swift */; };
 		257E27BC307D9B28005367C8 /* AppearanceMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27BB307D9B27005367C8 /* AppearanceMode.swift */; };
 		257E27BE307E2C25005367C8 /* ListingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27BD307E2C25005367C8 /* ListingsPage.swift */; };
+		257E27C2307E445C005367C8 /* FavoritesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27C1307E445C005367C8 /* FavoritesRepository.swift */; };
+		257E27C5307E44D3005367C8 /* UserDefaultsFavoritesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27C4307E44D3005367C8 /* UserDefaultsFavoritesStore.swift */; };
+		257E27C7307E4500005367C8 /* UserDefaultsFavoritesStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27C6307E4500005367C8 /* UserDefaultsFavoritesStoreTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +104,9 @@
 		257E27B8307CF2A2005367C8 /* ListingListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingListViewModelTests.swift; sourceTree = "<group>"; };
 		257E27BB307D9B27005367C8 /* AppearanceMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceMode.swift; sourceTree = "<group>"; };
 		257E27BD307E2C25005367C8 /* ListingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsPage.swift; sourceTree = "<group>"; };
+		257E27C1307E445C005367C8 /* FavoritesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesRepository.swift; sourceTree = "<group>"; };
+		257E27C4307E44D3005367C8 /* UserDefaultsFavoritesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsFavoritesStore.swift; sourceTree = "<group>"; };
+		257E27C6307E4500005367C8 /* UserDefaultsFavoritesStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsFavoritesStoreTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				257E276B307AADEF005367C8 /* ListingRepository.swift */,
+				257E27C1307E445C005367C8 /* FavoritesRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -204,6 +211,7 @@
 		257E276F307AE04C005367C8 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				257E27C3307E4482005367C8 /* Persistence */,
 				257E2782307B8926005367C8 /* Repositories */,
 				257E2779307AE770005367C8 /* DTOs */,
 				257E2772307AE09E005367C8 /* API */,
@@ -317,6 +325,7 @@
 				257E27B1307CE432005367C8 /* EndpointTests.swift */,
 				257E27B3307CE54C005367C8 /* ListingAPIClientTests.swift */,
 				257E27B5307CE5AF005367C8 /* ListingRepositoryTests.swift */,
+				257E27C6307E4500005367C8 /* UserDefaultsFavoritesStoreTests.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -335,6 +344,14 @@
 				257E27BB307D9B27005367C8 /* AppearanceMode.swift */,
 			);
 			path = Appearance;
+			sourceTree = "<group>";
+		};
+		257E27C3307E4482005367C8 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				257E27C4307E44D3005367C8 /* UserDefaultsFavoritesStore.swift */,
+			);
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -455,7 +472,9 @@
 				257E2784307B893A005367C8 /* ListingRepositoryImpl.swift in Sources */,
 				257E278A307B8F02005367C8 /* LoadingView.swift in Sources */,
 				257E27BC307D9B28005367C8 /* AppearanceMode.swift in Sources */,
+				257E27C5307E44D3005367C8 /* UserDefaultsFavoritesStore.swift in Sources */,
 				257E2788307B8ED6005367C8 /* ViewState.swift in Sources */,
+				257E27C2307E445C005367C8 /* FavoritesRepository.swift in Sources */,
 				257E273B307A6091005367C8 /* ContentView.swift in Sources */,
 				257E2767307AACE2005367C8 /* Listing.swift in Sources */,
 				257E27A0307B99A4005367C8 /* AppContainer.swift in Sources */,
@@ -476,6 +495,7 @@
 				257E27AD307BE21E005367C8 /* MockHTTPClient.swift in Sources */,
 				257E27B4307CE54C005367C8 /* ListingAPIClientTests.swift in Sources */,
 				257E27A9307BE115005367C8 /* Publisher+Sync.swift in Sources */,
+				257E27C7307E4500005367C8 /* UserDefaultsFavoritesStoreTests.swift in Sources */,
 				257E27B6307CE5AF005367C8 /* ListingRepositoryTests.swift in Sources */,
 				257E27AB307BE1D7005367C8 /* Fixtures.swift in Sources */,
 				257E27B2307CE432005367C8 /* EndpointTests.swift in Sources */,

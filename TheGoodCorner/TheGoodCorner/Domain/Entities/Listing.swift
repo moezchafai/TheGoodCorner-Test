@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct Listing: Identifiable, Hashable {
+struct Listing: Identifiable, Hashable, Codable {
     let id: Int
     let title: String
     let description: String
