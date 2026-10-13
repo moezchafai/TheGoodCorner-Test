@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ListingListView: View {
     @StateObject private var viewModel: ListingListViewModel
+
     @AppStorage(AppearanceMode.storageKey) private var appearanceRaw = AppearanceMode.system.rawValue
     @Environment(\.colorScheme) private var colorScheme
 
@@ -36,8 +37,9 @@ struct ListingListView: View {
                 }
         }
         .onAppear { viewModel.loadIfNeeded() }
-        .tint(Color.brandBlueDark)
     }
+
+    // MARK: - Contenu
 
     @ViewBuilder
     private var content: some View {
@@ -49,46 +51,102 @@ struct ListingListView: View {
         case .loaded:
             VStack(spacing: 0) {
                 CategoryFilterView(categories: viewModel.categories,
+                                   allCountText: viewModel.allCategoriesCountText,
+                                   countText: viewModel.countText(for:),
                                    selection: $viewModel.selectedCategory)
                 searchProgress
-                if viewModel.visibleListings.isEmpty {
-                    emptyState
-                } else {
-                    list
-                }
+                results
             }
         }
     }
+
+    /// Liste, ou ce qu'il faut montrer quand la liste visible est vide.
+    @ViewBuilder
+    private var results: some View {
+        if !viewModel.visibleListings.isEmpty {
+            list
+        } else if isStillLookingForCategoryResults {
+            searchingMoreView
+        } else if viewModel.loadMoreFailed {
+            EmptyStateView(title: "Chargement interrompu",
+                           message: "Impossible de charger la suite des annonces.",
+                           actionTitle: "Réessayer",
+                           action: viewModel.retryLoadMore)
+        } else {
+            emptyState
+        }
+    }
+
+    /// Une catégorie est choisie, rien n'est encore trouvé et le serveur a d'autres pages :
+    /// le view model les charge tout seul, il ne faut pas afficher « Aucune annonce » trop tôt.
+    private var isStillLookingForCategoryResults: Bool {
+        viewModel.selectedCategory != nil && viewModel.hasMore && !viewModel.loadMoreFailed
+    }
+
+    private var searchingMoreView: some View {
+        ProgressView("Recherche dans les annonces suivantes…")
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    // MARK: - Liste et défilement infini
 
     private var list: some View {
-        List(viewModel.visibleListings) { listing in
-            NavigationLink(value: listing) {
-                ListingRowView(listing: listing,
-                               categoryName: viewModel.categoryName(for: listing))
+        List {
+            ForEach(viewModel.visibleListings) { listing in
+                NavigationLink(value: listing) {
+                    ListingRowView(listing: listing,
+                                   categoryName: viewModel.categoryName(for: listing))
+                }
+                .accessibilityHint("Ouvre le détail de l'annonce")
+                // Quand une ligne proche de la fin apparaît, le view model charge la page suivante.
+                .onAppear { viewModel.loadMoreIfNeeded(currentItem: listing) }
             }
-            .accessibilityHint("Ouvre le détail de l'annonce")
+            footer
         }
         .listStyle(.plain)
-        .background(Color.screenBackground)
     }
 
-    // Barre fine pendant une recherche. Elle réserve toujours sa place
-     // (opacité) pour que la liste ne saute pas quand elle apparaît.
-     private var searchProgress: some View {
-         ProgressView()
-             .progressViewStyle(.linear)
-             .padding(.horizontal)
-             .opacity(viewModel.isSearching ? 1 : 0)
-             .accessibilityHidden(!viewModel.isSearching)
-             .accessibilityLabel("Recherche en cours")
-     }
+    /// Pied de liste : indicateur pendant le chargement d'une page, « Réessayer » si elle a échoué.
+    @ViewBuilder
+    private var footer: some View {
+        if viewModel.isLoadingMore {
+            HStack {
+                Spacer()
+                ProgressView()
+                Spacer()
+            }
+            .listRowSeparator(.hidden)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("Chargement d'autres annonces")
+        } else if viewModel.loadMoreFailed {
+            VStack(spacing: 8) {
+                Text("Impossible de charger la suite des annonces.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                Button("Réessayer", action: viewModel.retryLoadMore)
+                    .buttonStyle(.bordered)
+            }
+            .frame(maxWidth: .infinity)
+            .listRowSeparator(.hidden)
+        }
+    }
 
-     private var trimmedSearch: String {
-         viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-     }
-    private func toggleAppearance() {
-        let next: AppearanceMode = (colorScheme == .dark) ? .light : .dark
-        appearanceRaw = next.rawValue
+    // MARK: - Recherche
+
+    /// Barre fine pendant une recherche. Elle réserve toujours sa place
+    /// (opacité) pour que la liste ne saute pas quand elle apparaît.
+    private var searchProgress: some View {
+        ProgressView()
+            .progressViewStyle(.linear)
+            .padding(.horizontal)
+            .opacity(viewModel.isSearching ? 1 : 0)
+            .accessibilityHidden(!viewModel.isSearching)
+            .accessibilityLabel("Recherche en cours")
+    }
+
+    private var trimmedSearch: String {
+        viewModel.searchText.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     @ViewBuilder
@@ -124,5 +182,12 @@ struct ListingListView: View {
             return "Aucune annonce « \(trimmedSearch) » dans la catégorie « \(category.name) »."
         }
         return "Aucune annonce ne correspond à « \(trimmedSearch) »."
+    }
+
+    // MARK: - Apparence
+
+    private func toggleAppearance() {
+        let next: AppearanceMode = (colorScheme == .dark) ? .light : .dark
+        appearanceRaw = next.rawValue
     }
 }

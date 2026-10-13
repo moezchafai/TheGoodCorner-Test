@@ -10,11 +10,16 @@ import Foundation
 import Combine
 
 protocol ListingAPI {
-    func fetchListings(query: String?) -> AnyPublisher<ListingsResponseDTO, NetworkError>
+    /// `page` et `limit` à nil : le serveur renvoie tout le catalogue.
+    func fetchListings(page: Int?, limit: Int?, query: String?) -> AnyPublisher<ListingsResponseDTO, NetworkError>
     func fetchCategories() -> AnyPublisher<[CategoryDTO], NetworkError>
 }
 
 extension ListingAPI {
+    func fetchListings(query: String?) -> AnyPublisher<ListingsResponseDTO, NetworkError> {
+        fetchListings(page: nil, limit: nil, query: query)
+    }
+
     func fetchListings() -> AnyPublisher<ListingsResponseDTO, NetworkError> {
         fetchListings(query: nil)
     }
@@ -35,8 +40,8 @@ final class ListingAPIClient: ListingAPI {
 
     // MARK: - ListingAPI
 
-    func fetchListings(query: String?) -> AnyPublisher<ListingsResponseDTO, NetworkError> {
-        request(.listings(query: query))
+    func fetchListings(page: Int?, limit: Int?, query: String?) -> AnyPublisher<ListingsResponseDTO, NetworkError> {
+        request(.listings(page: page, limit: limit, query: query))
     }
 
     func fetchCategories() -> AnyPublisher<[CategoryDTO], NetworkError> {

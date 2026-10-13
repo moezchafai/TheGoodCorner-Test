@@ -20,10 +20,13 @@ final class ListingRepositoryImpl: ListingRepository {
         self.baseURL = baseURL
     }
 
-    func fetchListings(query: String?) -> AnyPublisher<[Listing], Error> {
-        api.fetchListings(query: query)
+    func fetchListings(page: Int?, limit: Int?, query: String?) -> AnyPublisher<ListingsPage, Error> {
+        api.fetchListings(page: page, limit: limit, query: query)
             .map { [baseURL] response in
-                response.items.map { $0.toDomain(baseURL: baseURL) }
+                ListingsPage(listings: response.items.map { $0.toDomain(baseURL: baseURL) },
+                             page: response.page,
+                             total: response.total,
+                             hasMore: response.hasMore)
             }
             .mapError { $0 as Error }
             .eraseToAnyPublisher()
