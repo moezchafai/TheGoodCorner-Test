@@ -56,6 +56,21 @@ final class ListingAPIClientTests: XCTestCase {
         let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
         XCTAssertEqual(items, [URLQueryItem(name: "query", value: "vélo")])
     }
+    /// La pagination envoie `page` puis `limit`, et rien d'autre quand il n'y a pas de recherche.
+    func test_fetchListings_withPageAndLimit_sendsPaginationParameters() throws {
+        // Given
+        let client = MockHTTPClient()
+        client.result = .success(Data(Fixtures.listingsJSON.utf8))
+
+        // When
+        _ = syncResult(of: makeSUT(client).fetchListings(page: 2, limit: 50, query: nil))
+
+        // Then
+        let url = try XCTUnwrap(client.requests.first?.url)
+        let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
+        XCTAssertEqual(items, [URLQueryItem(name: "page", value: "2"),
+                               URLQueryItem(name: "limit", value: "50")])
+    }
 
     // MARK: - Décodage
 

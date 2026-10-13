@@ -80,6 +80,31 @@ final class ListingRepositoryTests: XCTestCase {
         let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
         XCTAssertEqual(items?.first?.value, "vélo")
     }
+
+    /// Le repository expose ce dont l'app a besoin pour demander la page suivante.
+    func test_fetchListings_withPage_mapsPaginationMetadata() throws {
+        // Given
+        let client = MockHTTPClient()
+        client.result = .success(Data(#"{"page":2,"has_more":true,"total":300,"limit":50,"items":[]}"#.utf8))
+
+        // When
+        let page = try syncResult(of: makeSUT(client).fetchListings(page: 2, limit: 50, query: nil)).get()
+
+        // Then
+        XCTAssertEqual(page, ListingsPage(listings: [], page: 2, total: 300, hasMore: true))
+    }
+
+    /// Sur la dernière page, `has_more` est faux : l'app s'arrête de demander des pages.
+    func test_fetchListings_lastPage_hasNoMore() throws {
+        // When
+        let page = try syncResult(of: makeSUT(clientReturningListings())
+            .fetchListings(page: 1, limit: 50, query: nil)).get()
+
+        // Then
+        XCTAssertFalse(page.hasMore)
+        XCTAssertEqual(page.total, 2)
+        XCTAssertEqual(page.listings.map(\.id), [1, 2])
+    }
     // MARK: - Catégories
 
     func test_fetchCategories_mapsToDomain() throws {

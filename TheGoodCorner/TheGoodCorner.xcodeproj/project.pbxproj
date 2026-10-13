@@ -45,6 +45,7 @@
 		257E27B6307CE5AF005367C8 /* ListingRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27B5307CE5AF005367C8 /* ListingRepositoryTests.swift */; };
 		257E27B9307CF2A2005367C8 /* ListingListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27B8307CF2A2005367C8 /* ListingListViewModelTests.swift */; };
 		257E27BC307D9B28005367C8 /* AppearanceMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27BB307D9B27005367C8 /* AppearanceMode.swift */; };
+		257E27BE307E2C25005367C8 /* ListingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27BD307E2C25005367C8 /* ListingsPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		257E27B5307CE5AF005367C8 /* ListingRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingRepositoryTests.swift; sourceTree = "<group>"; };
 		257E27B8307CF2A2005367C8 /* ListingListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingListViewModelTests.swift; sourceTree = "<group>"; };
 		257E27BB307D9B27005367C8 /* AppearanceMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceMode.swift; sourceTree = "<group>"; };
+		257E27BD307E2C25005367C8 /* ListingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 			children = (
 				257E2766307AACE2005367C8 /* Listing.swift */,
 				257E276D307AAEC2005367C8 /* ListingCategory.swift */,
+				257E27BD307E2C25005367C8 /* ListingsPage.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				257E27BE307E2C25005367C8 /* ListingsPage.swift in Sources */,
 				257E277D307AE793005367C8 /* ListingDTO.swift in Sources */,
 				257E2778307AE12E005367C8 /* ListingAPIClient.swift in Sources */,
 				257E2774307AE0BE005367C8 /* Endpoint.swift in Sources */,

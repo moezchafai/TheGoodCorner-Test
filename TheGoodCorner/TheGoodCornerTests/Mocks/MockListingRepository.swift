@@ -3,7 +3,7 @@
 //  TheGoodCornerTests
 //
 //  Created by Moez bachagha on 11/10/2026.
-//
+
 
 import Combine
 import Foundation
@@ -11,7 +11,9 @@ import Foundation
 
 final class MockListingRepository: ListingRepository {
 
-    /// Réponse par défaut, pour toute requête sans réponse dédiée.
+    // MARK: - Réponses préparées
+
+    /// Réponse par défaut : une seule « page » qui contient tout.
     var listingsResult: Result<[Listing], Error> = .success([])
 
     /// Réponses propres à une recherche : `listingsByQuery["vélo"] = [...]`.
@@ -21,28 +23,49 @@ final class MockListingRepository: ListingRepository {
     /// (rien n'est émis tant que le test n'appelle pas `send`).
     var subjectsByQuery: [String: PassthroughSubject<[Listing], Error>] = [:]
 
+    /// Pages numérotées à partir de 1, pour les tests de pagination.
+    var pagesByNumber: [Int: Result<ListingsPage, Error>] = [:]
+
     var categoriesResult: Result<[ListingCategory], Error> = .success([])
+
+    // MARK: - Appels enregistrés
 
     private(set) var fetchListingsCallCount = 0
 
-    /// Textes de recherche reçus, dans l'ordre (`nil` = chargement sans recherche).
+    /// Textes de recherche reçus, dans l'ordre (`nil` = sans recherche).
     private(set) var receivedQueries: [String?] = []
+    private(set) var receivedPages: [Int?] = []
+    private(set) var receivedLimits: [Int?] = []
 
-    func fetchListings(query: String?) -> AnyPublisher<[Listing], Error> {
+    func fetchListings(page: Int?, limit: Int?, query: String?) -> AnyPublisher<ListingsPage, Error> {
         fetchListingsCallCount += 1
         receivedQueries.append(query)
+        receivedPages.append(page)
+        receivedLimits.append(limit)
 
+        if let page, let result = pagesByNumber[page] {
+            return result.publisher.eraseToAnyPublisher()
+        }
         if let query, let subject = subjectsByQuery[query] {
-            return subject.eraseToAnyPublisher()
+            return subject.map(MockListingRepository.singlePage).eraseToAnyPublisher()
         }
         if let query, let listings = listingsByQuery[query] {
-            return Just(listings).setFailureType(to: Error.self).eraseToAnyPublisher()
+            return Just(MockListingRepository.singlePage(listings))
+                .setFailureType(to: Error.self)
+                .eraseToAnyPublisher()
         }
-        return listingsResult.publisher.eraseToAnyPublisher()
+        return listingsResult
+            .map(MockListingRepository.singlePage)
+            .publisher
+            .eraseToAnyPublisher()
     }
 
     func fetchCategories() -> AnyPublisher<[ListingCategory], Error> {
         categoriesResult.publisher.eraseToAnyPublisher()
+    }
+
+    private static func singlePage(_ listings: [Listing]) -> ListingsPage {
+        ListingsPage(listings: listings, page: 1, total: listings.count, hasMore: false)
     }
 }
 
