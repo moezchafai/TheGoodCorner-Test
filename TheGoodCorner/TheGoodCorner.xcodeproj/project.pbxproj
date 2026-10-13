@@ -49,6 +49,9 @@
 		257E27C2307E445C005367C8 /* FavoritesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27C1307E445C005367C8 /* FavoritesRepository.swift */; };
 		257E27C5307E44D3005367C8 /* UserDefaultsFavoritesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27C4307E44D3005367C8 /* UserDefaultsFavoritesStore.swift */; };
 		257E27C7307E4500005367C8 /* UserDefaultsFavoritesStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27C6307E4500005367C8 /* UserDefaultsFavoritesStoreTests.swift */; };
+		257E27CA307E48D0005367C8 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27C9307E48D0005367C8 /* FavoritesViewModel.swift */; };
+		257E27CC307E4913005367C8 /* MockFavoritesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27CB307E4913005367C8 /* MockFavoritesRepository.swift */; };
+		257E27CE307E4941005367C8 /* FavoritesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27CD307E4941005367C8 /* FavoritesViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +110,9 @@
 		257E27C1307E445C005367C8 /* FavoritesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesRepository.swift; sourceTree = "<group>"; };
 		257E27C4307E44D3005367C8 /* UserDefaultsFavoritesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsFavoritesStore.swift; sourceTree = "<group>"; };
 		257E27C6307E4500005367C8 /* UserDefaultsFavoritesStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsFavoritesStoreTests.swift; sourceTree = "<group>"; };
+		257E27C9307E48D0005367C8 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
+		257E27CB307E4913005367C8 /* MockFavoritesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFavoritesRepository.swift; sourceTree = "<group>"; };
+		257E27CD307E4941005367C8 /* FavoritesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +260,7 @@
 				257E27BA307D9AF2005367C8 /* Appearance */,
 				257E2793307B9098005367C8 /* Listings */,
 				257E27A1307BB13F005367C8 /* ListingDetails */,
+				257E27C8307E484A005367C8 /* Favorites */,
 				257E2786307B8EC9005367C8 /* Components */,
 			);
 			path = UI;
@@ -315,6 +322,7 @@
 			children = (
 				257E27AC307BE21E005367C8 /* MockHTTPClient.swift */,
 				257E27AE307BE278005367C8 /* MockListingRepository.swift */,
+				257E27CB307E4913005367C8 /* MockFavoritesRepository.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -334,6 +342,7 @@
 			isa = PBXGroup;
 			children = (
 				257E27B8307CF2A2005367C8 /* ListingListViewModelTests.swift */,
+				257E27CD307E4941005367C8 /* FavoritesViewModelTests.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -352,6 +361,14 @@
 				257E27C4307E44D3005367C8 /* UserDefaultsFavoritesStore.swift */,
 			);
 			path = Persistence;
+			sourceTree = "<group>";
+		};
+		257E27C8307E484A005367C8 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				257E27C9307E48D0005367C8 /* FavoritesViewModel.swift */,
+			);
+			path = Favorites;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -472,6 +489,7 @@
 				257E2784307B893A005367C8 /* ListingRepositoryImpl.swift in Sources */,
 				257E278A307B8F02005367C8 /* LoadingView.swift in Sources */,
 				257E27BC307D9B28005367C8 /* AppearanceMode.swift in Sources */,
+				257E27CA307E48D0005367C8 /* FavoritesViewModel.swift in Sources */,
 				257E27C5307E44D3005367C8 /* UserDefaultsFavoritesStore.swift in Sources */,
 				257E2788307B8ED6005367C8 /* ViewState.swift in Sources */,
 				257E27C2307E445C005367C8 /* FavoritesRepository.swift in Sources */,
@@ -492,6 +510,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				257E27CE307E4941005367C8 /* FavoritesViewModelTests.swift in Sources */,
 				257E27AD307BE21E005367C8 /* MockHTTPClient.swift in Sources */,
 				257E27B4307CE54C005367C8 /* ListingAPIClientTests.swift in Sources */,
 				257E27A9307BE115005367C8 /* Publisher+Sync.swift in Sources */,
@@ -499,6 +518,7 @@
 				257E27B6307CE5AF005367C8 /* ListingRepositoryTests.swift in Sources */,
 				257E27AB307BE1D7005367C8 /* Fixtures.swift in Sources */,
 				257E27B2307CE432005367C8 /* EndpointTests.swift in Sources */,
+				257E27CC307E4913005367C8 /* MockFavoritesRepository.swift in Sources */,
 				257E27AF307BE278005367C8 /* MockListingRepository.swift in Sources */,
 				257E27B9307CF2A2005367C8 /* ListingListViewModelTests.swift in Sources */,
 			);
