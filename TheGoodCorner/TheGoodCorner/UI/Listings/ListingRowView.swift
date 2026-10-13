@@ -3,8 +3,6 @@
 //  TheGoodCorner
 //
 //  Created by Moez bachagha on 11/10/2026.
-//
-
 
 
 import SwiftUI
@@ -12,6 +10,8 @@ import SwiftUI
 struct ListingRowView: View {
     let listing: Listing
     let categoryName: String
+    let isFavorite: Bool
+    let onToggleFavorite: () -> Void
 
     @ScaledMetric(relativeTo: .body) private var imageSize: CGFloat = 88
 
@@ -20,13 +20,17 @@ struct ListingRowView: View {
             // MARK: - Vignette de l'annonce
             ListingImageView(url: listing.thumbImageURL ?? listing.smallImageURL)
                 .frame(width: imageSize, height: imageSize)
-                .aspectRatio(1.0, contentMode: .fill)
                 .background(Color(.systemGray6))
                 .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                 .overlay(
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .stroke(Color.primary.opacity(0.06), lineWidth: 1)
                 )
+                .overlay(alignment: .topTrailing) {
+                    // Masqué à VoiceOver : la ligne est lue en un bloc, le cœur est une action de la ligne.
+                    FavoriteButton(isFavorite: isFavorite, action: onToggleFavorite)
+                        .accessibilityHidden(true)
+                }
 
             // MARK: - Informations textuelles
             VStack(alignment: .leading, spacing: 4) {
@@ -66,10 +70,12 @@ struct ListingRowView: View {
     }
 
     // MARK: - Accessibilité
+
     private var accessibilityText: String {
         var parts: [String] = []
         if listing.isUrgent { parts.append("Annonce urgente") }
         parts.append(contentsOf: [listing.title, categoryName, listing.priceText])
-        return parts.joined(separator: ", ")
+        if isFavorite { parts.append("Dans vos favoris") }
+        return parts.filter { !$0.isEmpty }.joined(separator: ", ")
     }
 }
