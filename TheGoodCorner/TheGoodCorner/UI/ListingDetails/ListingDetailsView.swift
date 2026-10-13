@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct ListingDetailsView: View {
+    @EnvironmentObject private var favorites: FavoritesViewModel
     let listing: Listing
     let categoryName: String
 
     var body: some View {
         ZStack(alignment: .bottom) {
+            
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
 
@@ -95,5 +97,15 @@ struct ListingDetailsView: View {
         }
         .navigationTitle("Détail de l'annonce")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                let isFavorite = favorites.isFavorite(listing)
+                Button { favorites.toggle(listing) } label: {
+                    Image(systemName: isFavorite ? "heart.fill" : "heart")
+                        .foregroundStyle(isFavorite ? Color.red : Color.primary)
+                }
+                .accessibilityLabel(isFavorite ? "Retirer des favoris" : "Ajouter aux favoris")
+            }
+        }
     }
 }

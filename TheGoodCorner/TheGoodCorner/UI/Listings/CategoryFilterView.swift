@@ -46,8 +46,8 @@ struct CategoryFilterView: View {
                 .lineLimit(1)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 8)
-                .background(isSelected ? Color.accentColor : Color(.secondarySystemBackground))
-                .foregroundStyle(isSelected ? Color.white : Color.primary)
+                .background(isSelected ? Color.brandBlueDark :Color(.secondarySystemBackground))
+                .foregroundStyle(isSelected ? Color.white : Color.brandBlueDark)
                 .clipShape(Capsule())
         }
         .buttonStyle(.plain)

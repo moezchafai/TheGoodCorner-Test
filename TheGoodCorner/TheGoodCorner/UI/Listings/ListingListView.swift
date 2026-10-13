@@ -13,6 +13,7 @@ struct ListingListView: View {
 
     @AppStorage(AppearanceMode.storageKey) private var appearanceRaw = AppearanceMode.system.rawValue
     @Environment(\.colorScheme) private var colorScheme
+    @EnvironmentObject private var favorites: FavoritesViewModel
 
     init(viewModel: @autoclosure @escaping () -> ListingListViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel())
@@ -24,7 +25,8 @@ struct ListingListView: View {
                 .navigationTitle("Annonces")
                 .searchable(text: $viewModel.searchText, prompt: "Rechercher une annonce")
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        favoritesLink
                         Button(action: toggleAppearance) {
                             Image(systemName: colorScheme == .dark ? "sun.max" : "moon")
                         }
@@ -95,9 +97,12 @@ struct ListingListView: View {
             ForEach(viewModel.visibleListings) { listing in
                 NavigationLink(value: listing) {
                     ListingRowView(listing: listing,
-                                   categoryName: viewModel.categoryName(for: listing))
+                                   categoryName: viewModel.categoryName(for: listing),
+                                   isFavorite: favorites.isFavorite(listing),
+                                   onToggleFavorite: { favorites.toggle(listing) })
                 }
                 .accessibilityHint("Ouvre le détail de l'annonce")
+                .favoriteAccessibilityAction(isFavorite: favorites.isFavorite(listing)) { favorites.toggle(listing) }
                 // Quand une ligne proche de la fin apparaît, le view model charge la page suivante.
                 .onAppear { viewModel.loadMoreIfNeeded(currentItem: listing) }
             }
@@ -183,7 +188,40 @@ struct ListingListView: View {
         }
         return "Aucune annonce ne correspond à « \(trimmedSearch) »."
     }
+    // MARK: - Favoris
 
+    /// Bouton « cœur » de la barre : ouvre l'écran des favoris, avec le nombre en pastille.
+    private var favoritesLink: some View {
+        NavigationLink {
+            FavoritesView(categoryName: viewModel.categoryName(for:))
+        } label: {
+            Image(systemName: "heart")
+                .overlay(alignment: .topTrailing) { favoritesBadge }
+        }
+        .accessibilityLabel(favoritesAccessibilityLabel)
+    }
+
+    @ViewBuilder
+    private var favoritesBadge: some View {
+        if favorites.count > 0 {
+            Text("\(favorites.count)")
+                .font(.caption2.bold())
+                .foregroundStyle(.white)
+                .padding(.horizontal, 5)
+                .padding(.vertical, 1)
+                .background(Color.red, in: Capsule())
+                .offset(x: 10, y: -8)
+                .accessibilityHidden(true)   // le nombre est déjà dans le libellé du bouton
+        }
+    }
+
+    private var favoritesAccessibilityLabel: String {
+        switch favorites.count {
+        case 0:  return "Favoris, aucune annonce"
+        case 1:  return "Favoris, 1 annonce"
+        default: return "Favoris, \(favorites.count) annonces"
+        }
+    }
     // MARK: - Apparence
 
     private func toggleAppearance() {
