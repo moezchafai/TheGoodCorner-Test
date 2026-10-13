@@ -26,6 +26,9 @@ final class MockListingRepository: ListingRepository {
     /// Pages numérotées à partir de 1, pour les tests de pagination.
     var pagesByNumber: [Int: Result<ListingsPage, Error>] = [:]
 
+    /// Page lente pilotée à la main (même principe que `subjectsByQuery`).
+    var subjectsByPage: [Int: PassthroughSubject<ListingsPage, Error>] = [:]
+
     var categoriesResult: Result<[ListingCategory], Error> = .success([])
 
     // MARK: - Appels enregistrés
@@ -43,17 +46,27 @@ final class MockListingRepository: ListingRepository {
         receivedPages.append(page)
         receivedLimits.append(limit)
 
-        if let page, let result = pagesByNumber[page] {
-            return result.publisher.eraseToAnyPublisher()
+        // 1. Une recherche a ses propres réponses.
+        if let query {
+            if let subject = subjectsByQuery[query] {
+                return subject.map(MockListingRepository.singlePage).eraseToAnyPublisher()
+            }
+            if let listings = listingsByQuery[query] {
+                return Just(MockListingRepository.singlePage(listings))
+                    .setFailureType(to: Error.self)
+                    .eraseToAnyPublisher()
+            }
         }
-        if let query, let subject = subjectsByQuery[query] {
-            return subject.map(MockListingRepository.singlePage).eraseToAnyPublisher()
+        // 2. Sinon, une page numérotée.
+        if let page {
+            if let subject = subjectsByPage[page] {
+                return subject.eraseToAnyPublisher()
+            }
+            if let result = pagesByNumber[page] {
+                return result.publisher.eraseToAnyPublisher()
+            }
         }
-        if let query, let listings = listingsByQuery[query] {
-            return Just(MockListingRepository.singlePage(listings))
-                .setFailureType(to: Error.self)
-                .eraseToAnyPublisher()
-        }
+        // 3. Sinon, la réponse par défaut.
         return listingsResult
             .map(MockListingRepository.singlePage)
             .publisher
