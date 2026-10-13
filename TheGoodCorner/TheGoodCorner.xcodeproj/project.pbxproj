@@ -54,6 +54,8 @@
 		257E27CE307E4941005367C8 /* FavoritesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27CD307E4941005367C8 /* FavoritesViewModelTests.swift */; };
 		257E27D0307E4DBB005367C8 /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27CF307E4DBB005367C8 /* FavoriteButton.swift */; };
 		257E27D2307E4E2D005367C8 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27D1307E4E2D005367C8 /* FavoritesView.swift */; };
+		257E27D4307E6890005367C8 /* DesignTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27D3307E6890005367C8 /* DesignTokens.swift */; };
+		257E27D6307E69F9005367C8 /* ListingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E27D5307E69F9005367C8 /* ListingCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +119,8 @@
 		257E27CD307E4941005367C8 /* FavoritesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModelTests.swift; sourceTree = "<group>"; };
 		257E27CF307E4DBB005367C8 /* FavoriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteButton.swift; sourceTree = "<group>"; };
 		257E27D1307E4E2D005367C8 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
+		257E27D3307E6890005367C8 /* DesignTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignTokens.swift; sourceTree = "<group>"; };
+		257E27D5307E69F9005367C8 /* ListingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,6 +284,8 @@
 				257E278F307B8F8F005367C8 /* ListingImageView.swift */,
 				257E2791307B8FB9005367C8 /* UrgentBadge.swift */,
 				257E27A4307BB8A7005367C8 /* Color+Theme.swift */,
+				257E27D3307E6890005367C8 /* DesignTokens.swift */,
+				257E27D5307E69F9005367C8 /* ListingCardView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -507,6 +513,8 @@
 				257E279B307B98EA005367C8 /* ListingRowView.swift in Sources */,
 				257E2739307A6091005367C8 /* TheGoodCornerApp.swift in Sources */,
 				257E276C307AADEF005367C8 /* ListingRepository.swift in Sources */,
+				257E27D4307E6890005367C8 /* DesignTokens.swift in Sources */,
+				257E27D6307E69F9005367C8 /* ListingCardView.swift in Sources */,
 				257E27D2307E4E2D005367C8 /* FavoritesView.swift in Sources */,
 				257E2792307B8FB9005367C8 /* UrgentBadge.swift in Sources */,
 				257E278C307B8F27005367C8 /* ErrorView.swift in Sources */,

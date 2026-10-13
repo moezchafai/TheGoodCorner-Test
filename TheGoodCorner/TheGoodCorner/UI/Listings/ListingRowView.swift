@@ -27,7 +27,7 @@ struct ListingRowView: View {
                         .stroke(Color.primary.opacity(0.06), lineWidth: 1)
                 )
                 .overlay(alignment: .topTrailing) {
-                    // Masqué à VoiceOver : la ligne est lue en un bloc, le cœur est une action de la ligne.
+        // Masqué à VoiceOver : la ligne est lue en un bloc, le cœur est une action de la ligne.
                     FavoriteButton(isFavorite: isFavorite, action: onToggleFavorite)
                         .accessibilityHidden(true)
                 }

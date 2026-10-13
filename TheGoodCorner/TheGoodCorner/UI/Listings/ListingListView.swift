@@ -5,6 +5,7 @@
 //  Created by Moez bachagha on 11/10/2026.
 //
 
+
 import Foundation
 import SwiftUI
 
@@ -41,8 +42,6 @@ struct ListingListView: View {
         .onAppear { viewModel.loadIfNeeded() }
     }
 
-    // MARK: - Contenu
-
     @ViewBuilder
     private var content: some View {
         switch viewModel.state {
@@ -59,10 +58,10 @@ struct ListingListView: View {
                 searchProgress
                 results
             }
+            .background(Color.screenBackground)
         }
     }
 
-    /// Liste, ou ce qu'il faut montrer quand la liste visible est vide.
     @ViewBuilder
     private var results: some View {
         if !viewModel.visibleListings.isEmpty {
@@ -79,8 +78,6 @@ struct ListingListView: View {
         }
     }
 
-    /// Une catégorie est choisie, rien n'est encore trouvé et le serveur a d'autres pages :
-    /// le view model les charge tout seul, il ne faut pas afficher « Aucune annonce » trop tôt.
     private var isStillLookingForCategoryResults: Bool {
         viewModel.selectedCategory != nil && viewModel.hasMore && !viewModel.loadMoreFailed
     }
@@ -90,28 +87,37 @@ struct ListingListView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
-    // MARK: - Liste et défilement infini
+    // MARK: - Liste (floating cards)
 
     private var list: some View {
-        List {
-            ForEach(viewModel.visibleListings) { listing in
-                NavigationLink(value: listing) {
-                    ListingRowView(listing: listing,
-                                   categoryName: viewModel.categoryName(for: listing),
-                                   isFavorite: favorites.isFavorite(listing),
-                                   onToggleFavorite: { favorites.toggle(listing) })
+        ScrollView {
+            LazyVStack(spacing: DesignTokens.Spacing.listSpacing) {
+                ForEach(viewModel.visibleListings) { listing in
+                    NavigationLink(value: listing) {
+                        ListingCardView(
+                            listing: listing,
+                            categoryName: viewModel.categoryName(for: listing),
+                            isFavorite: favorites.isFavorite(listing),
+                            onToggleFavorite: { favorites.toggle(listing) }
+                        )
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityHint("Ouvre le détail de l'annonce")
+                    .favoriteAccessibilityAction(isFavorite: favorites.isFavorite(listing)) {
+                        favorites.toggle(listing)
+                    }
+                    .onAppear { viewModel.loadMoreIfNeeded(currentItem: listing) }
                 }
-                .accessibilityHint("Ouvre le détail de l'annonce")
-                .favoriteAccessibilityAction(isFavorite: favorites.isFavorite(listing)) { favorites.toggle(listing) }
-                // Quand une ligne proche de la fin apparaît, le view model charge la page suivante.
-                .onAppear { viewModel.loadMoreIfNeeded(currentItem: listing) }
+
+                footer
             }
-            footer
+            .padding(.horizontal, 16)
+            .padding(.top, 8)
+            .padding(.bottom, 16)
         }
-        .listStyle(.plain)
+        .background(Color.screenBackground)
     }
 
-    /// Pied de liste : indicateur pendant le chargement d'une page, « Réessayer » si elle a échoué.
     @ViewBuilder
     private var footer: some View {
         if viewModel.isLoadingMore {
@@ -120,7 +126,7 @@ struct ListingListView: View {
                 ProgressView()
                 Spacer()
             }
-            .listRowSeparator(.hidden)
+            .padding(.vertical, 12)
             .accessibilityElement(children: .ignore)
             .accessibilityLabel("Chargement d'autres annonces")
         } else if viewModel.loadMoreFailed {
@@ -133,14 +139,12 @@ struct ListingListView: View {
                     .buttonStyle(.bordered)
             }
             .frame(maxWidth: .infinity)
-            .listRowSeparator(.hidden)
+            .padding(.vertical, 12)
         }
     }
 
     // MARK: - Recherche
 
-    /// Barre fine pendant une recherche. Elle réserve toujours sa place
-    /// (opacité) pour que la liste ne saute pas quand elle apparaît.
     private var searchProgress: some View {
         ProgressView()
             .progressViewStyle(.linear)
@@ -188,15 +192,17 @@ struct ListingListView: View {
         }
         return "Aucune annonce ne correspond à « \(trimmedSearch) »."
     }
+
     // MARK: - Favoris
 
-    /// Bouton « cœur » de la barre : ouvre l'écran des favoris, avec le nombre en pastille.
     private var favoritesLink: some View {
         NavigationLink {
             FavoritesView(categoryName: viewModel.categoryName(for:))
         } label: {
             Image(systemName: "heart")
+                .foregroundStyle(Color.brandBlue)
                 .overlay(alignment: .topTrailing) { favoritesBadge }
+
         }
         .accessibilityLabel(favoritesAccessibilityLabel)
     }
@@ -211,7 +217,7 @@ struct ListingListView: View {
                 .padding(.vertical, 1)
                 .background(Color.red, in: Capsule())
                 .offset(x: 10, y: -8)
-                .accessibilityHidden(true)   // le nombre est déjà dans le libellé du bouton
+                .accessibilityHidden(true)
         }
     }
 
@@ -222,6 +228,7 @@ struct ListingListView: View {
         default: return "Favoris, \(favorites.count) annonces"
         }
     }
+
     // MARK: - Apparence
 
     private func toggleAppearance() {

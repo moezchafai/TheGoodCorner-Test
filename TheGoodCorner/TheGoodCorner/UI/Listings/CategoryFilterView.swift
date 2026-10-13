@@ -9,14 +9,8 @@ import SwiftUI
 
 struct CategoryFilterView: View {
     let categories: [ListingCategory]
-
-    /// Compteur de « Toutes » : exact dès la première page (le total vient du serveur).
     let allCountText: String
-
-    /// Compteur d'une catégorie : « 12+ » tant qu'il reste des pages, « 47 » une fois tout chargé,
-    /// nil quand on ne sait rien (le serveur ne compte pas par catégorie).
     let countText: (ListingCategory) -> String?
-
     @Binding var selection: ListingCategory?
 
     var body: some View {
@@ -41,22 +35,36 @@ struct CategoryFilterView: View {
                       isSelected: Bool,
                       action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            Text(count.map { "\(name) (\($0))" } ?? name)
+            Text(count.map { "\(name) \($0)" } ?? name)
                 .font(.subheadline.weight(.medium))
                 .lineLimit(1)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 8)
-                .background(isSelected ? Color.brandBlueDark :Color(.secondarySystemBackground))
+                .background(
+                    isSelected
+                    ? AnyShapeStyle(Color.brandBlue)
+                    : AnyShapeStyle(Color.cardBackground)
+                )
                 .foregroundStyle(isSelected ? Color.white : Color.brandBlueDark)
                 .clipShape(Capsule())
+                .overlay(
+                    Capsule()
+                        .stroke(
+                            isSelected ? Color.clear : Color.primary.opacity(0.08),
+                            lineWidth: 1
+                        )
+                )
+                .shadow(
+                    color: isSelected ? Color.brandBlue.opacity(0.25) : Color.clear,
+                    radius: 4,
+                    y: 2
+                )
         }
         .buttonStyle(.plain)
         .accessibilityLabel(accessibilityText(name: name, count: count))
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 
-    /// VoiceOver lit une phrase, pas « Mode parenthèse douze plus » :
-    /// « Mode, au moins 12 annonces » ou « Mode, 47 annonces ».
     private func accessibilityText(name: String, count: String?) -> String {
         guard let count else { return name }
         if count.hasSuffix("+") {
