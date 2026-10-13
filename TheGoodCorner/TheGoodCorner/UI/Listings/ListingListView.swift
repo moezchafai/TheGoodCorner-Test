@@ -35,10 +35,11 @@ struct ListingListView: View {
                     }
                 }
                 .navigationDestination(for: Listing.self) { listing in
-                    ListingDetailsView(listing: listing,
+                ListingDetailsView(listing: listing,
                                        categoryName: viewModel.categoryName(for: listing))
                 }
         }
+        .tint(Color.brandBlueDark)
         .onAppear { viewModel.loadIfNeeded() }
     }
 
