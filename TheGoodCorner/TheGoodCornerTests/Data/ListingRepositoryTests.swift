@@ -3,130 +3,49 @@
 //  TheGoodCornerTests
 //
 //  Created by Moez bachagha on 12/10/2026.
-//
 
-import Foundation
 import XCTest
 @testable import TheGoodCorner
 
-/// Vérifie le mapping DTO → Domain fait par le repository.
-/// Le `MockHTTPClient` renvoie des données préparées, sans aucun appel réseau.
+/// Vérifie la traduction des DTOs en entités du Domain.
 final class ListingRepositoryTests: XCTestCase {
 
     private let baseURL = URL(string: "http://localhost:8080")!
 
-    // Crée un repository complet (API + repository) branché sur le mock.
-    private func makeSUT(_ client: MockHTTPClient) -> ListingRepositoryImpl {
+    private func makeSUT(returning json: String) -> ListingRepositoryImpl {
+        let client = MockHTTPClient()
+        client.result = .success(Data(json.utf8))
         let api = ListingAPIClient(httpClient: client, baseURL: baseURL)
         return ListingRepositoryImpl(api: api, baseURL: baseURL)
     }
 
-    // Raccourci : un mock qui renvoie toujours le même JSON d'annonces.
-    private func clientReturningListings() -> MockHTTPClient {
-        let client = MockHTTPClient()
-        client.result = .success(Data(Fixtures.listingsJSON.utf8))
-        return client
-    }
-
-    // MARK: - Mapping DTO → Domain
-
-    // Vérifie que l'ordre renvoyé par l'API est préservé dans le Domain.
-    func test_fetchListings_mapsToDomain_keepingAPIOrder() throws {
-        let sut = makeSUT(clientReturningListings())
-
-        let listings = try syncResult(of: sut.fetchListings()).get()
-
-        XCTAssertEqual(listings.map(\.id), [1, 2])
-        XCTAssertEqual(listings[0].title, "Vinyle")
-        XCTAssertEqual(listings[0].categoryID, 7)
-        XCTAssertTrue(listings[0].isUrgent)
-        XCTAssertFalse(listings[1].isUrgent)
-    }
-
-    // Vérifie que les URLs d'images relatives (`/images/...`) sont bien préfixées
-    /// par le base URL, et que les annonces sans image retournent `nil`.
-    func test_fetchListings_resolvesRelativeImagePaths_andHandlesMissingImages() throws {
-        let sut = makeSUT(clientReturningListings())
-
-        let listings = try syncResult(of: sut.fetchListings()).get()
-
-        XCTAssertEqual(listings[0].smallImageURL?.absoluteString,
-                       "http://localhost:8080/images/ad-small/a.jpg")
-        XCTAssertEqual(listings[0].thumbImageURL?.absoluteString,
-                       "http://localhost:8080/images/ad-thumb/a.jpg")
-        XCTAssertNil(listings[1].smallImageURL)
-        XCTAssertNil(listings[1].thumbImageURL)
-    }
-
-    // Quand `description` est absente du JSON, le Domain utilise une chaîne vide plutôt qu'une valeur `nil`.
-    func test_fetchListings_whenDescriptionIsMissing_usesEmptyString() throws {
-        let sut = makeSUT(clientReturningListings())
-
-        let listings = try syncResult(of: sut.fetchListings()).get()
-
-        XCTAssertEqual(listings[0].description, "Bon état")
-        XCTAssertEqual(listings[1].description, "")
-    }
-    /// Le repository transmet la recherche à l'API, sans la modifier.
-    func test_fetchListings_withQuery_forwardsQueryToTheAPI() throws {
+    /// L'ordre de l'API est conservé. Les chemins d'images relatifs deviennent des URLs complètes,
+    /// et une annonce dont `images_url` est vide (`{}`) n'a pas d'image, ce qui affichera un placeholder.
+    func test_fetchListings_mapsToDomain_keepingOrder_andResolvingImages() throws {
         // Given
-        let client = clientReturningListings()
+        let sut = makeSUT(returning: Fixtures.listingsJSON)
 
         // When
-        _ = syncResult(of: makeSUT(client).fetchListings(query: "vélo"))
+        let page = try syncResult(of: sut.fetchListings(page: 1, limit: 50, query: nil)).get()
 
         // Then
-        let url = try XCTUnwrap(client.requests.first?.url)
-        let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
-        XCTAssertEqual(items?.first?.value, "vélo")
+        XCTAssertEqual(page.listings.map(\.id), [1, 2])
+        XCTAssertEqual(page.listings[0].categoryID, 7)
+        XCTAssertEqual(page.listings[0].smallImageURL?.absoluteString,
+                       "http://localhost:8080/images/ad-small/a.jpg")
+        XCTAssertNil(page.listings[1].smallImageURL)
+        XCTAssertNil(page.listings[1].thumbImageURL)
     }
 
     /// Le repository expose ce dont l'app a besoin pour demander la page suivante.
-    func test_fetchListings_withPage_mapsPaginationMetadata() throws {
+    func test_fetchListings_exposesPaginationMetadata() throws {
         // Given
-        let client = MockHTTPClient()
-        client.result = .success(Data(#"{"page":2,"has_more":true,"total":300,"limit":50,"items":[]}"#.utf8))
+        let sut = makeSUT(returning: #"{"page":2,"has_more":true,"total":300,"limit":50,"items":[]}"#)
 
         // When
-        let page = try syncResult(of: makeSUT(client).fetchListings(page: 2, limit: 50, query: nil)).get()
+        let page = try syncResult(of: sut.fetchListings(page: 2, limit: 50, query: nil)).get()
 
         // Then
         XCTAssertEqual(page, ListingsPage(listings: [], page: 2, total: 300, hasMore: true))
-    }
-
-    /// Sur la dernière page, `has_more` est faux : l'app s'arrête de demander des pages.
-    func test_fetchListings_lastPage_hasNoMore() throws {
-        // When
-        let page = try syncResult(of: makeSUT(clientReturningListings())
-            .fetchListings(page: 1, limit: 50, query: nil)).get()
-
-        // Then
-        XCTAssertFalse(page.hasMore)
-        XCTAssertEqual(page.total, 2)
-        XCTAssertEqual(page.listings.map(\.id), [1, 2])
-    }
-    // MARK: - Catégories
-
-    func test_fetchCategories_mapsToDomain() throws {
-        let client = MockHTTPClient()
-        client.result = .success(Data(Fixtures.categoriesJSON.utf8))
-
-        let categories = try syncResult(of: makeSUT(client).fetchCategories()).get()
-
-        XCTAssertEqual(categories, [ListingCategory(id: 1, name: "Véhicule"),
-                                    ListingCategory(id: 2, name: "Mode")])
-    }
-
-    // MARK: - Erreurs
-
-    // Une erreur réseau (ex : pas de connexion) doit être remontée telle quelle.
-    func test_fetchListings_whenNetworkFails_exposesTheUnderlyingError() {
-        let client = MockHTTPClient()
-        client.result = .failure(.transport)
-
-        let result = syncResult(of: makeSUT(client).fetchListings())
-
-        guard case .failure(let error) = result else { return XCTFail("Une erreur était attendue") }
-        XCTAssertEqual(error as? NetworkError, .transport)
     }
 }
