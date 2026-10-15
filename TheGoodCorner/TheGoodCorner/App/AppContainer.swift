@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 struct AppContainer {
     let repository: ListingRepository
     let favoritesRepository: FavoritesRepository

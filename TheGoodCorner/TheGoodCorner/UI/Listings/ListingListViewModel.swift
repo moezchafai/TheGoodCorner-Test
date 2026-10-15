@@ -9,6 +9,7 @@
 import Combine
 import Foundation
 
+@MainActor
 final class ListingListViewModel: ObservableObject {
 
     // MARK: - État exposé à la vue
@@ -19,6 +20,10 @@ final class ListingListViewModel: ObservableObject {
 
     /// Vrai pendant une recherche : la liste précédente reste affichée en attendant le résultat.
     @Published private(set) var isSearching = false
+
+    /// Message d'erreur **local** d'une recherche qui a échoué.
+    /// N'écrase pas `state` : la liste déjà affichée reste visible.
+    @Published private(set) var searchError: String?
 
     /// Vrai pendant le chargement d'une page supplémentaire.
     @Published private(set) var isLoadingMore = false
@@ -91,7 +96,10 @@ final class ListingListViewModel: ObservableObject {
             .removeDuplicates()
             .dropFirst()
             .debounce(for: searchDebounce, scheduler: DispatchQueue.main)
-            .sink { [weak self] query in self?.search(query) }
+            .sink { [weak self] query in
+                self?.searchError = nil   // on efface l'erreur précédente
+                self?.search(query)
+            }
             .store(in: &cancellables)
     }
 
@@ -167,10 +175,19 @@ final class ListingListViewModel: ObservableObject {
         .receive(on: DispatchQueue.main)
         .sink { [weak self] completion in
             guard case .failure(let error) = completion else { return }
-            self?.isSearching = false
-            self?.state = .error(error.localizedDescription)
+            guard let self else { return }
+            self.isSearching = false
+
+            if self.currentQuery.isEmpty {
+                // Échec du chargement initial → écran d'erreur
+                self.state = .error(error.localizedDescription)
+            } else {
+                // Échec d'une recherche → on garde la liste et on affiche un message local
+                self.searchError = error.localizedDescription
+            }
         } receiveValue: { [weak self] page, categories in
             guard let self else { return }
+            self.searchError = nil
             self.categories = categories
             self.hasMore = page.hasMore
             self.nextPage = 2

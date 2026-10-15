@@ -12,7 +12,7 @@ struct ListingListView: View {
 
     // MARK: - Dependencies
 
-    /// Le ViewModel est maintenant **possédé par l'App** (créé dans `TheGoodCornerApp`),
+    /// Le ViewModel est possédé par l'App (créé dans `TheGoodCornerApp`),
     /// pas par cette vue. On l'observe donc avec `@ObservedObject`.
     @ObservedObject var viewModel: ListingListViewModel
 
@@ -24,10 +24,19 @@ struct ListingListView: View {
     @AppStorage(AppearanceMode.storageKey) private var appearanceRaw = AppearanceMode.system.rawValue
     @Environment(\.colorScheme) private var colorScheme
 
+    /// Identifiant unique pour forcer SwiftUI à recréer la barre de recherche au retour.
+    /// Contourne un bug connu de `.searchable` dans `NavigationStack`.
+    @State private var searchBarID = UUID()
+
     var body: some View {
         content
             .navigationTitle("Annonces")
-            .searchable(text: $viewModel.searchText, prompt: "Rechercher une annonce")
+            .searchable(
+                text: $viewModel.searchText,
+                placement: .navigationBarDrawer(displayMode: .always),
+                prompt: "Rechercher une annonce"
+            )
+            .id(searchBarID)   // Force le re-render au retour
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     favoritesButton
@@ -37,7 +46,11 @@ struct ListingListView: View {
                     .accessibilityLabel(colorScheme == .dark ? "Passer en mode clair" : "Passer en mode sombre")
                 }
             }
-            .onAppear { viewModel.loadIfNeeded() }
+            .onAppear {
+                // Régénère l'ID pour que SwiftUI recrée la barre de recherche au retour.
+                searchBarID = UUID()
+                viewModel.loadIfNeeded()
+            }
     }
 
     // MARK: - Contenu
@@ -56,6 +69,7 @@ struct ListingListView: View {
                                    countText: viewModel.countText(for:),
                                    selection: $viewModel.selectedCategory)
                 searchProgress
+                searchErrorBanner
                 results
             }
             .background(Color.screenBackground)
@@ -154,6 +168,28 @@ struct ListingListView: View {
             .opacity(viewModel.isSearching ? 1 : 0)
             .accessibilityHidden(!viewModel.isSearching)
             .accessibilityLabel("Recherche en cours")
+    }
+
+    /// Bandeau discret affiché sous la barre de recherche si une recherche échoue.
+    /// La liste déjà affichée reste visible : seule la dernière recherche a échoué.
+    @ViewBuilder
+    private var searchErrorBanner: some View {
+        if let message = viewModel.searchError {
+            HStack(spacing: 6) {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .font(.caption)
+                    .foregroundStyle(.orange)
+                Text("Recherche impossible. Vérifiez votre connexion.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Spacer()
+            }
+            .padding(.horizontal)
+            .padding(.vertical, 6)
+            .background(Color.orange.opacity(0.08))
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(message)
+        }
     }
 
     private var trimmedSearch: String {

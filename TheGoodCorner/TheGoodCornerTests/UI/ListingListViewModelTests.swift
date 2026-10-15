@@ -11,6 +11,8 @@ import Combine
 /// Vérifie la logique de l'écran de liste, sans SwiftUI ni réseau.
 /// Elle protège : l'ordre de l'API, le filtre par catégorie (côté app), la recherche temporisée
 /// et annulable, et la pagination (sans doublon, sans boucle quand une page échoue).
+///
+@MainActor
 final class ListingListViewModelTests: XCTestCase {
 
     private struct TestError: Error {}

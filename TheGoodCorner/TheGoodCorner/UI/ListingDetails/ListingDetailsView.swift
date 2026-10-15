@@ -5,20 +5,25 @@
 //  Created by Moez bachagha on 11/10/2026.
 //
 
+
 import SwiftUI
 
 struct ListingDetailsView: View {
+
     @EnvironmentObject private var favorites: FavoritesViewModel
+
+    @State private var showContactAlert = false
+
     let listing: Listing
     let categoryName: String
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            
+
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
 
-                    // MARK: Image
+                    // MARK: - Image
                     ListingImageView(
                         url: listing.smallImageURL ?? listing.thumbImageURL,
                         accessibilityLabel: "Photo de l'annonce : \(listing.title)"
@@ -31,7 +36,7 @@ struct ListingDetailsView: View {
                         UrgentBadge()
                     }
 
-                    // MARK: Titre & Prix
+                    // MARK: - Titre & Prix
                     VStack(alignment: .leading, spacing: 6) {
                         Text(listing.title)
                             .font(.title2.bold())
@@ -41,9 +46,10 @@ struct ListingDetailsView: View {
                         Text(listing.priceText)
                             .font(.system(.title, design: .rounded, weight: .bold))
                             .foregroundColor(Color.brandBlueDark)
+                            .accessibilityLabel("Prix : \(listing.priceText)")
                     }
 
-                    // MARK: Métadonnées (Catégorie & Date)
+                    // MARK: - Métadonnées (Catégorie & Date)
                     VStack(alignment: .leading, spacing: 6) {
                         Label(categoryName, systemImage: "tag")
                         Label("Publiée le \(listing.dateText)", systemImage: "calendar")
@@ -53,7 +59,7 @@ struct ListingDetailsView: View {
 
                     Divider()
 
-                    // MARK: Description
+                    // MARK: - Description
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Description")
                             .font(.headline)
@@ -72,10 +78,10 @@ struct ListingDetailsView: View {
                 .padding(.bottom, 90) // pour ne pas être caché par le bouton flottant
             }
 
-            // MARK: Bouton d'action flottant
+            // MARK: - Bouton d'action flottant
             VStack {
                 Button {
-                    // TODO: action contacter le vendeur
+                    showContactAlert = true
                 } label: {
                     HStack {
                         Image(systemName: "envelope.fill")
@@ -92,7 +98,8 @@ struct ListingDetailsView: View {
                 .padding(.horizontal, 20)
                 .padding(.vertical, 12)
                 .background(.ultraThinMaterial)
-                .accessibilityLabel("Contacter le vendeur par email")
+                .accessibilityLabel("Contacter le vendeur")
+                .accessibilityHint("Ouvre une alerte pour contacter le vendeur")
             }
         }
         .navigationTitle("Détail de l'annonce")
@@ -100,12 +107,19 @@ struct ListingDetailsView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 let isFavorite = favorites.isFavorite(listing)
-                Button { favorites.toggle(listing) } label: {
+                Button {
+                    favorites.toggle(listing)
+                } label: {
                     Image(systemName: isFavorite ? "heart.fill" : "heart")
                         .foregroundStyle(isFavorite ? Color.red : Color.primary)
                 }
                 .accessibilityLabel(isFavorite ? "Retirer des favoris" : "Ajouter aux favoris")
             }
+        }
+        .alert("Contacter le vendeur", isPresented: $showContactAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("La messagerie sera bientôt disponible dans l'application.")
         }
     }
 }

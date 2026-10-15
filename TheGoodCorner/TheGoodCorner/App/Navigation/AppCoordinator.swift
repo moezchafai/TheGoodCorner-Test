@@ -9,6 +9,7 @@ import SwiftUI
 
 /// Seul responsable de la navigation : quelles destinations existent,
 /// comment construire chaque écran, et dans quel ordre ils sont empilés.
+@MainActor
 final class AppCoordinator: ObservableObject {
 
     /// Pile de navigation.

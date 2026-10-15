@@ -9,6 +9,7 @@ import XCTest
 @testable import TheGoodCorner
 
 /// La navigation est une logique à part entière : on la teste sans SwiftUI.
+@MainActor
 final class AppCoordinatorTests: XCTestCase {
 
     private func makeSUT() -> AppCoordinator {
