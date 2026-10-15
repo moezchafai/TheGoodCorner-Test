@@ -5,7 +5,6 @@
 //  Created by Moez bachagha on 11/10/2026.
 //
 
-
 import Combine
 import Foundation
 
@@ -21,8 +20,7 @@ final class ListingListViewModel: ObservableObject {
     /// Vrai pendant une recherche : la liste précédente reste affichée en attendant le résultat.
     @Published private(set) var isSearching = false
 
-    /// Message d'erreur **local** d'une recherche qui a échoué.
-    /// N'écrase pas `state` : la liste déjà affichée reste visible.
+    /// Erreur **locale** d'une recherche qui a échoué. N'écrase pas `state` : la liste reste visible.
     @Published private(set) var searchError: String?
 
     /// Vrai pendant le chargement d'une page supplémentaire.
@@ -34,7 +32,7 @@ final class ListingListViewModel: ObservableObject {
     /// Il reste des pages à charger côté serveur.
     @Published private(set) var hasMore = false
 
-    /// Nombre total de résultats côté serveur pour la recherche en cours (exact dès la première page).
+    /// Nombre total de résultats côté serveur pour la liste chargée (exact dès la première page).
     @Published private(set) var totalCount = 0
 
     /// nil = toutes les catégories. Le filtre est appliqué côté app (l'API n'a pas de paramètre de catégorie).
@@ -53,18 +51,22 @@ final class ListingListViewModel: ObservableObject {
     private let minimumVisibleCount: Int
     private let prefetchDistance = 5
 
+    /// Texte de recherche voulu par l'utilisateur (dernier texte, après debounce).
     private var currentQuery = ""
+
+    /// Texte de recherche qui a produit `allListings`, `nextPage`, `hasMore` et `totalCount`.
+    /// Il diffère de `currentQuery` pendant une recherche ou après un échec : c'est toujours lui
+    /// qu'on utilise pour demander la page suivante, afin de ne jamais mélanger deux recherches.
+    private var loadedQuery = ""
+
     private var nextPage = 2
     private var hasStartedLoading = false
 
-    /// Réassigner ces propriétés annule la requête en cours : c'est ce qui coupe
-    /// une recherche ou une page devenue inutile.
+    /// Réassigner ces propriétés annule la requête en cours.
     private var loadCancellable: AnyCancellable?
     private var loadMoreCancellable: AnyCancellable?
     private var cancellables = Set<AnyCancellable>()
 
-    /// Les paramètres ont des valeurs par défaut : l'app ne change rien,
-    /// les tests peuvent écourter le debounce et la taille des pages.
     init(repository: ListingRepository,
          searchDebounce: DispatchQueue.SchedulerTimeType.Stride = .milliseconds(300),
          pageSize: Int = 50,
@@ -73,8 +75,7 @@ final class ListingListViewModel: ObservableObject {
         self.pageSize = pageSize
         self.minimumVisibleCount = minimumVisibleCount
 
-        // Le filtre par catégorie se recalcule dès que la liste ou la catégorie change.
-        // `filter` ne réordonne pas : l'ordre de l'API est conservé.
+        // Le filtre se recalcule dès que la liste ou la catégorie change ; `filter` ne réordonne pas.
         Publishers.CombineLatest($allListings, $selectedCategory)
             .map { listings, category in
                 guard let category else { return listings }
@@ -82,24 +83,19 @@ final class ListingListViewModel: ObservableObject {
             }
             .assign(to: &$visibleListings)
 
-        // Changer de catégorie peut laisser une liste trop courte pour défiler :
-        // on charge alors la page suivante sans attendre.
+        // Un filtre peut laisser une liste trop courte pour défiler : on charge alors la suite.
         $selectedCategory
             .dropFirst()
             .sink { [weak self] category in self?.loadMoreIfListIsShort(for: category) }
             .store(in: &cancellables)
 
-        // Recherche : on nettoie le texte, on ignore la valeur initiale et les répétitions,
-        // puis on attend que l'utilisateur arrête de taper.
+        // Recherche : texte nettoyé, valeur initiale et répétitions ignorées, puis debounce.
         $searchText
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .removeDuplicates()
             .dropFirst()
             .debounce(for: searchDebounce, scheduler: DispatchQueue.main)
-            .sink { [weak self] query in
-                self?.searchError = nil   // on efface l'erreur précédente
-                self?.search(query)
-            }
+            .sink { [weak self] query in self?.search(query) }
             .store(in: &cancellables)
     }
 
@@ -114,6 +110,13 @@ final class ListingListViewModel: ObservableObject {
     /// Chargement depuis la première page (premier affichage ou « Réessayer ») : écran de chargement.
     func load() {
         fetchFirstPage(showsFullScreenLoading: true)
+    }
+
+    /// « Réessayer » après l'échec d'une recherche : relance le dernier texte voulu.
+    /// Indispensable : retaper le même texte ne ferait rien (`removeDuplicates`).
+    func retrySearch() {
+        searchError = nil
+        fetchFirstPage(showsFullScreenLoading: false)
     }
 
     /// Appelé par chaque ligne qui apparaît : charge la page suivante quand on approche de la fin.
@@ -140,7 +143,6 @@ final class ListingListViewModel: ObservableObject {
 
     /// Le serveur ne compte pas par catégorie : on compte ce qui est chargé.
     /// Tant qu'il reste des pages, le chiffre est un minimum (« 12+ ») ; il devient exact en fin de chargement.
-    /// Retourne nil quand on ne sait rien (0 trouvé, mais il reste des pages).
     func countText(for category: ListingCategory) -> String? {
         let count = allListings.filter { $0.categoryID == category.id }.count
         if hasMore { return count == 0 ? nil : "\(count)+" }
@@ -150,14 +152,22 @@ final class ListingListViewModel: ObservableObject {
     // MARK: - Chargement
 
     private func search(_ query: String) {
-        // Revenir au texte déjà chargé ne doit pas relancer de requête.
-        guard query != currentQuery else { return }
         currentQuery = query
+        searchError = nil
+
+        guard query != loadedQuery else {
+        // Retour au texte déjà affiché : on abandonne la recherche en cours, s'il y en a une.
+            if isSearching {
+                loadCancellable = nil
+                isSearching = false
+            }
+            return
+        }
         fetchFirstPage(showsFullScreenLoading: false)
     }
 
     private func fetchFirstPage(showsFullScreenLoading: Bool) {
-        // Une nouvelle recherche rend toute page en cours inutile : on l'annule.
+        // Une nouvelle première page rend toute page en cours inutile : on l'annule.
         loadMoreCancellable = nil
         isLoadingMore = false
         loadMoreFailed = false
@@ -168,25 +178,27 @@ final class ListingListViewModel: ObservableObject {
             isSearching = true
         }
 
+        let query = currentQuery
+
         loadCancellable = Publishers.Zip(
-            repository.fetchListings(page: 1, limit: pageSize, query: queryOrNil),
+            repository.fetchListings(page: 1, limit: pageSize, query: Self.nilIfEmpty(query)),
             categoriesPublisher()
         )
         .receive(on: DispatchQueue.main)
         .sink { [weak self] completion in
-            guard case .failure(let error) = completion else { return }
-            guard let self else { return }
+            guard case .failure(let error) = completion, let self else { return }
             self.isSearching = false
 
-            if self.currentQuery.isEmpty {
-                // Échec du chargement initial → écran d'erreur
+            // Écran d'erreur seulement si l'écran est déjà en chargement plein écran, ou si on
+            // revient à la liste complète. Sinon (recherche en échec) : erreur locale, la liste reste.
+            if showsFullScreenLoading || query.isEmpty {
                 self.state = .error(error.localizedDescription)
             } else {
-                // Échec d'une recherche → on garde la liste et on affiche un message local
                 self.searchError = error.localizedDescription
             }
         } receiveValue: { [weak self] page, categories in
             guard let self else { return }
+            self.loadedQuery = query
             self.searchError = nil
             self.categories = categories
             self.hasMore = page.hasMore
@@ -203,8 +215,10 @@ final class ListingListViewModel: ObservableObject {
         guard hasMore, !isLoadingMore, !loadMoreFailed, !isSearching, state == .loaded else { return }
         isLoadingMore = true
         let requestedPage = nextPage
+        let query = loadedQuery
 
-        loadMoreCancellable = repository.fetchListings(page: requestedPage, limit: pageSize, query: queryOrNil)
+        loadMoreCancellable = repository.fetchListings(page: requestedPage, limit: pageSize,
+                                                       query: Self.nilIfEmpty(query))
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard case .failure = completion else { return }
@@ -232,7 +246,7 @@ final class ListingListViewModel: ObservableObject {
 
     // MARK: - Aides
 
-    private var queryOrNil: String? { currentQuery.isEmpty ? nil : currentQuery }
+    private static func nilIfEmpty(_ text: String) -> String? { text.isEmpty ? nil : text }
 
     /// Les catégories ne dépendent pas de la recherche : on ne les redemande qu'une fois.
     private func categoriesPublisher() -> AnyPublisher<[ListingCategory], Error> {

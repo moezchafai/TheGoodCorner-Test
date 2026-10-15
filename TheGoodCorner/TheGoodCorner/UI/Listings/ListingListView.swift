@@ -5,28 +5,19 @@
 //  Created by Moez bachagha on 11/10/2026.
 //
 
-import Foundation
+
 import SwiftUI
 
 struct ListingListView: View {
 
     // MARK: - Dependencies
 
-    /// Le ViewModel est possédé par l'App (créé dans `TheGoodCornerApp`),
-    /// pas par cette vue. On l'observe donc avec `@ObservedObject`.
     @ObservedObject var viewModel: ListingListViewModel
-
-    /// Le coordinateur est injecté par `AppCoordinatorView` via `.environmentObject`.
     @EnvironmentObject private var coordinator: AppCoordinator
-
     @EnvironmentObject private var favorites: FavoritesViewModel
 
     @AppStorage(AppearanceMode.storageKey) private var appearanceRaw = AppearanceMode.system.rawValue
     @Environment(\.colorScheme) private var colorScheme
-
-    /// Identifiant unique pour forcer SwiftUI à recréer la barre de recherche au retour.
-    /// Contourne un bug connu de `.searchable` dans `NavigationStack`.
-    @State private var searchBarID = UUID()
 
     var body: some View {
         content
@@ -36,7 +27,6 @@ struct ListingListView: View {
                 placement: .navigationBarDrawer(displayMode: .always),
                 prompt: "Rechercher une annonce"
             )
-            .id(searchBarID)   // Force le re-render au retour
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     favoritesButton
@@ -46,11 +36,7 @@ struct ListingListView: View {
                     .accessibilityLabel(colorScheme == .dark ? "Passer en mode clair" : "Passer en mode sombre")
                 }
             }
-            .onAppear {
-                // Régénère l'ID pour que SwiftUI recrée la barre de recherche au retour.
-                searchBarID = UUID()
-                viewModel.loadIfNeeded()
-            }
+            .onAppear { viewModel.loadIfNeeded() }
     }
 
     // MARK: - Contenu
@@ -76,10 +62,17 @@ struct ListingListView: View {
         }
     }
 
+    /// Liste, ou ce qu'il faut montrer quand la liste visible est vide.
+    /// L'ordre des cas compte : une recherche en échec ne doit jamais passer pour « aucun résultat ».
     @ViewBuilder
     private var results: some View {
         if !viewModel.visibleListings.isEmpty {
             list
+        } else if viewModel.searchError != nil {
+            EmptyStateView(title: "Recherche impossible",
+                           message: "La recherche n'a pas pu aboutir. Vérifiez votre connexion.",
+                           actionTitle: "Réessayer",
+                           action: viewModel.retrySearch)
         } else if isStillLookingForCategoryResults {
             searchingMoreView
         } else if viewModel.loadMoreFailed {
@@ -92,6 +85,8 @@ struct ListingListView: View {
         }
     }
 
+    /// Une catégorie est choisie, rien n'est encore trouvé et le serveur a d'autres pages :
+    /// le view model les charge tout seul, il ne faut pas afficher « Aucune annonce » trop tôt.
     private var isStillLookingForCategoryResults: Bool {
         viewModel.selectedCategory != nil && viewModel.hasMore && !viewModel.loadMoreFailed
     }
@@ -107,8 +102,6 @@ struct ListingListView: View {
         ScrollView {
             LazyVStack(spacing: DesignTokens.Spacing.listSpacing) {
                 ForEach(viewModel.visibleListings) { listing in
-                    // On passe une **route** au lieu d'une `Listing` brute :
-                    // c'est le coordinateur qui décidera quel écran afficher.
                     NavigationLink(value: AppRoute.details(listing)) {
                         ListingCardView(
                             listing: listing,
@@ -122,6 +115,7 @@ struct ListingListView: View {
                     .favoriteAccessibilityAction(isFavorite: favorites.isFavorite(listing)) {
                         favorites.toggle(listing)
                     }
+                    // Quand une ligne proche de la fin apparaît, le view model charge la page suivante.
                     .onAppear { viewModel.loadMoreIfNeeded(currentItem: listing) }
                 }
 
@@ -134,6 +128,7 @@ struct ListingListView: View {
         .background(Color.screenBackground)
     }
 
+    /// Pied de liste : indicateur pendant le chargement d'une page, « Réessayer » si elle a échoué.
     @ViewBuilder
     private var footer: some View {
         if viewModel.isLoadingMore {
@@ -161,6 +156,8 @@ struct ListingListView: View {
 
     // MARK: - Recherche
 
+    /// Barre fine pendant une recherche. Elle réserve toujours sa place (opacité)
+    /// pour que la liste ne saute pas quand elle apparaît.
     private var searchProgress: some View {
         ProgressView()
             .progressViewStyle(.linear)
@@ -170,25 +167,30 @@ struct ListingListView: View {
             .accessibilityLabel("Recherche en cours")
     }
 
-    /// Bandeau discret affiché sous la barre de recherche si une recherche échoue.
-    /// La liste déjà affichée reste visible : seule la dernière recherche a échoué.
+    /// Bandeau discret affiché quand une recherche échoue alors qu'une liste est affichée :
+    /// la liste reste visible et « Réessayer » relance la recherche.
+    /// Si la liste est vide, c'est l'écran « Recherche impossible » qui prend le relais.
     @ViewBuilder
     private var searchErrorBanner: some View {
-        if let message = viewModel.searchError {
-            HStack(spacing: 6) {
+        if viewModel.searchError != nil && !viewModel.visibleListings.isEmpty {
+            HStack(spacing: 8) {
                 Image(systemName: "exclamationmark.triangle.fill")
                     .font(.caption)
                     .foregroundStyle(.orange)
-                Text("Recherche impossible. Vérifiez votre connexion.")
+                    .accessibilityHidden(true)
+                Text("Recherche impossible.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 Spacer()
+                Button("Réessayer") {
+                    viewModel.retrySearch()
+                }
+                .font(.caption.weight(.semibold))
+                .accessibilityLabel("Réessayer la recherche")
             }
             .padding(.horizontal)
             .padding(.vertical, 6)
             .background(Color.orange.opacity(0.08))
-            .accessibilityElement(children: .combine)
-            .accessibilityLabel(message)
         }
     }
 
@@ -233,7 +235,7 @@ struct ListingListView: View {
 
     // MARK: - Favoris (toolbar)
 
-    /// Le bouton "Favoris" demande au coordinateur d'empiler l'écran des favoris.
+    /// Le bouton « Favoris » demande au coordinateur d'empiler l'écran des favoris.
     private var favoritesButton: some View {
         Button(action: coordinator.showFavorites) {
             Image(systemName: "heart")
@@ -253,7 +255,7 @@ struct ListingListView: View {
                 .padding(.vertical, 1)
                 .background(Color.red, in: Capsule())
                 .offset(x: 10, y: -8)
-                .accessibilityHidden(true)
+                .accessibilityHidden(true)   // le nombre est déjà dans le libellé du bouton
         }
     }
 

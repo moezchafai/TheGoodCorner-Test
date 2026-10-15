@@ -254,4 +254,56 @@ final class ListingListViewModelTests: XCTestCase {
         // Then
         XCTAssertEqual(repo.receivedPages, [1, 2, 3])
     }
+    /// Une recherche qui échoue garde la liste, montre une erreur locale (pas l'écran d'erreur),
+    /// et « Réessayer » relance le même texte. Retaper le même texte ne le ferait pas (removeDuplicates).
+    func test_search_failure_keepsListings_andRetryRerunsTheQuery() {
+        // Given
+        let (sut, repo) = makeSUT(listings: [.stub(id: 1)])
+        sut.load()
+        waitForLoadToFinish(sut)
+        repo.listingsResult = .failure(TestError())
+
+        // When : la recherche échoue
+        sut.searchText = "vélo"
+        spin(until: sut.searchError != nil)
+
+        // Then : la liste reste affichée
+        XCTAssertEqual(sut.state, .loaded)
+        XCTAssertEqual(sut.visibleListings.map(\.id), [1])
+        XCTAssertFalse(sut.isSearching)
+
+        // When : « Réessayer », le serveur répond à nouveau
+        repo.listingsResult = .success([.stub(id: 5)])
+        sut.retrySearch()
+        spin(until: sut.visibleListings.map(\.id) == [5])
+
+        // Then
+        XCTAssertNil(sut.searchError)
+        XCTAssertEqual(repo.receivedQueries.last, "vélo")
+    }
+
+    /// Après une recherche en échec, la liste affichée est l'ancienne : sa page suivante doit être
+    /// demandée pour l'ancien texte, pas pour celui qui a échoué (sinon les deux se mélangent).
+    func test_search_failure_doesNotMixNextPageOfFailedQueryIntoOldList() {
+        // Given
+        let (sut, repo) = makeSUT()
+        repo.pagesByNumber[1] = .success(makePage([.stub(id: 1), .stub(id: 2)], total: 3, hasMore: true))
+        repo.pagesByNumber[2] = .success(makePage([.stub(id: 3)], total: 3, hasMore: false, page: 2))
+        sut.load()
+        waitForLoadToFinish(sut)
+
+        let failing = PassthroughSubject<[Listing], Error>()
+        repo.subjectsByQuery["vel"] = failing
+        sut.searchText = "vel"
+        spin(until: repo.receivedQueries.last == "vel")
+        failing.send(completion: .failure(TestError()))
+        spin(until: sut.searchError != nil)
+
+        // When : l'utilisateur fait défiler l'ancienne liste jusqu'au bout
+        sut.loadMoreIfNeeded(currentItem: sut.visibleListings[1])
+        spin(until: sut.visibleListings.map(\.id) == [1, 2, 3])
+
+        // Then : la page suivante a bien été demandée sans texte de recherche
+        XCTAssertEqual(repo.receivedQueries, [nil, "vel", nil])
+    }
 }

@@ -10,7 +10,6 @@ import SwiftUI
 
 
 
-import SwiftUI
 
 /// Badge "URGENT" affiché sur les annonces marquées comme urgentes.
 /// Suit le Dynamic Type grâce aux styles de texte système.
