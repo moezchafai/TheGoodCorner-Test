@@ -5,43 +5,42 @@
 //  Created by Moez bachagha on 11/10/2026.
 //
 
-
 import Foundation
 import SwiftUI
 
 struct ListingListView: View {
-    @StateObject private var viewModel: ListingListViewModel
+
+    // MARK: - Dependencies
+
+    /// Le ViewModel est maintenant **possédé par l'App** (créé dans `TheGoodCornerApp`),
+    /// pas par cette vue. On l'observe donc avec `@ObservedObject`.
+    @ObservedObject var viewModel: ListingListViewModel
+
+    /// Le coordinateur est injecté par `AppCoordinatorView` via `.environmentObject`.
+    @EnvironmentObject private var coordinator: AppCoordinator
+
+    @EnvironmentObject private var favorites: FavoritesViewModel
 
     @AppStorage(AppearanceMode.storageKey) private var appearanceRaw = AppearanceMode.system.rawValue
     @Environment(\.colorScheme) private var colorScheme
-    @EnvironmentObject private var favorites: FavoritesViewModel
-
-    init(viewModel: @autoclosure @escaping () -> ListingListViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel())
-    }
 
     var body: some View {
-        NavigationStack {
-            content
-                .navigationTitle("Annonces")
-                .searchable(text: $viewModel.searchText, prompt: "Rechercher une annonce")
-                .toolbar {
-                    ToolbarItemGroup(placement: .navigationBarTrailing) {
-                        favoritesLink
-                        Button(action: toggleAppearance) {
-                            Image(systemName: colorScheme == .dark ? "sun.max" : "moon")
-                        }
-                        .accessibilityLabel(colorScheme == .dark ? "Passer en mode clair" : "Passer en mode sombre")
+        content
+            .navigationTitle("Annonces")
+            .searchable(text: $viewModel.searchText, prompt: "Rechercher une annonce")
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    favoritesButton
+                    Button(action: toggleAppearance) {
+                        Image(systemName: colorScheme == .dark ? "sun.max" : "moon")
                     }
+                    .accessibilityLabel(colorScheme == .dark ? "Passer en mode clair" : "Passer en mode sombre")
                 }
-                .navigationDestination(for: Listing.self) { listing in
-                ListingDetailsView(listing: listing,
-                                       categoryName: viewModel.categoryName(for: listing))
-                }
-        }
-        .tint(Color.brandBlueDark)
-        .onAppear { viewModel.loadIfNeeded() }
+            }
+            .onAppear { viewModel.loadIfNeeded() }
     }
+
+    // MARK: - Contenu
 
     @ViewBuilder
     private var content: some View {
@@ -94,7 +93,9 @@ struct ListingListView: View {
         ScrollView {
             LazyVStack(spacing: DesignTokens.Spacing.listSpacing) {
                 ForEach(viewModel.visibleListings) { listing in
-                    NavigationLink(value: listing) {
+                    // On passe une **route** au lieu d'une `Listing` brute :
+                    // c'est le coordinateur qui décidera quel écran afficher.
+                    NavigationLink(value: AppRoute.details(listing)) {
                         ListingCardView(
                             listing: listing,
                             categoryName: viewModel.categoryName(for: listing),
@@ -194,16 +195,14 @@ struct ListingListView: View {
         return "Aucune annonce ne correspond à « \(trimmedSearch) »."
     }
 
-    // MARK: - Favoris
+    // MARK: - Favoris (toolbar)
 
-    private var favoritesLink: some View {
-        NavigationLink {
-            FavoritesView(categoryName: viewModel.categoryName(for:))
-        } label: {
+    /// Le bouton "Favoris" demande au coordinateur d'empiler l'écran des favoris.
+    private var favoritesButton: some View {
+        Button(action: coordinator.showFavorites) {
             Image(systemName: "heart")
                 .foregroundStyle(Color.brandBlue)
                 .overlay(alignment: .topTrailing) { favoritesBadge }
-
         }
         .accessibilityLabel(favoritesAccessibilityLabel)
     }

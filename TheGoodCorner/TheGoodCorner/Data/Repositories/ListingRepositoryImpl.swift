@@ -14,8 +14,7 @@ final class ListingRepositoryImpl: ListingRepository {
     private let api: ListingAPI
     private let baseURL: URL
 
-    init(api: ListingAPI,
-         baseURL: URL = URL(string: "http://localhost:8080")!) {
+    init(api: ListingAPI, baseURL: URL) {
         self.api = api
         self.baseURL = baseURL
     }

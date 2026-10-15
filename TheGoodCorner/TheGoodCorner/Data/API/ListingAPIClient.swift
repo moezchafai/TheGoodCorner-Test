@@ -31,8 +31,7 @@ final class ListingAPIClient: ListingAPI {
     private let baseURL: URL
     private let decoder: JSONDecoder
 
-    init(httpClient: HTTPClient,
-         baseURL: URL = URL(string: "http://localhost:8080")!) {
+    init(httpClient: HTTPClient,baseURL: URL ) {
         self.httpClient = httpClient
         self.baseURL = baseURL
         self.decoder = Self.makeDecoder()
